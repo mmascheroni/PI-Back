@@ -10,7 +10,7 @@ public class Producto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-   //validación nombre único
+    //validación nombre único
     private String nombre;
 
     private String descripcion;
@@ -42,4 +42,6 @@ public class Producto {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
+
+
 }
