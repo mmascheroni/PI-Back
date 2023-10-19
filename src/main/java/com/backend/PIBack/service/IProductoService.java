@@ -1,7 +1,7 @@
-package service;
+package com.backend.PIBack.service;
 
-import dto.ProductoDto;
-import entity.Producto;
+import com.backend.PIBack.dto.ProductoDto;
+import com.backend.PIBack.entity.Producto;
 
 import java.util.List;
 

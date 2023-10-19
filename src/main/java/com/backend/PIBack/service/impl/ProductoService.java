@@ -1,15 +1,15 @@
-package service.impl;
+package com.backend.PIBack.service.impl;
 
+import com.backend.PIBack.service.IProductoService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import dto.ProductoDto;
+import com.backend.PIBack.dto.ProductoDto;
 
-import entity.Producto;
+import com.backend.PIBack.entity.Producto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import repository.ProductoRepository;
-import service.IProductoService;
+import com.backend.PIBack.repository.ProductoRepository;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package entity;
+package com.backend.PIBack.entity;
 
 import jakarta.persistence.*;
 

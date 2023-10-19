@@ -1,6 +1,6 @@
-package repository;
+package com.backend.PIBack.repository;
 
-import entity.Producto;
+import com.backend.PIBack.entity.Producto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

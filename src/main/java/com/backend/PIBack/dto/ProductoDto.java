@@ -1,7 +1,7 @@
-package dto;
+package com.backend.PIBack.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import entity.Producto;
+import com.backend.PIBack.entity.Producto;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ProductoDto {
 
