@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface IProductoService {
 
-    // ProductoDto buscarProductoPorId(Long id);
+    ProductoDto buscarProductoPorId(Long id);
 
     List<ProductoDto> listarProductos();
 

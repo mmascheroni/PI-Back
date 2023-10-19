@@ -29,19 +29,44 @@ public class ProductoService implements IProductoService {
     }
 
 
-//    @Override
-//    public ProductoDto buscarProductoPorId(Long id) {
-//        return null;
-//    }
+    @Override
+    public ProductoDto buscarProductoPorId(Long id) {
+        Producto productoBuscado = productoRepository.findById(id).orElse(null);
+        ProductoDto productoDto = null;
+
+        if ( productoBuscado != null ) {
+            productoDto = objectMapper.convertValue(productoBuscado, ProductoDto.class);
+            LOGGER.info("Producto encontrado: {}", productoDto);
+        } else {
+            LOGGER.error("El producto buscado con id {}, no se encuentra registrado en la base de datos", id);
+        }
+        return productoDto;
+    }
 
     @Override
     public List<ProductoDto> listarProductos() {
-        return null;
+        List<Producto> productos = productoRepository.findAll();
+
+        List<ProductoDto> productosDtos = productos.stream().map(producto -> {
+
+
+            return new ProductoDto(producto.getId(), producto.getNombre(), producto.getDescripcion());
+        }).toList();
+
+        if ( productosDtos.size() > 0 ) {
+            LOGGER.info("Listado de productos: {}", productosDtos);
+        } else {
+            LOGGER.warn("No existe paciente registrado en la base de datos: {}", productosDtos);
+        }
+
+        return productosDtos;
     }
 
     @Override
     public ProductoDto registrarProducto(Producto producto) {
-        return null;
+        ProductoDto productoDto = objectMapper.convertValue(productoRepository.save(producto), ProductoDto.class);
+        LOGGER.info("Se guardó el producto: {}", productoDto);
+        return productoDto;
     }
 
 //    @Override
@@ -51,6 +76,11 @@ public class ProductoService implements IProductoService {
 
     @Override
     public void eliminarProducto(Long id) {
-
+        if (buscarProductoPorId(id) != null) {
+            productoRepository.deleteById(id);
+            LOGGER.warn("Se ha eliminado al producto con ID: {}", id);
+        } else {
+            LOGGER.error("No se ha encontrado el producto con id " + id);
+        }
     }
 }
