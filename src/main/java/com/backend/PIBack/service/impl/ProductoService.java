@@ -28,6 +28,12 @@ public class ProductoService implements IProductoService {
         this.objectMapper = objectMapper;
     }
 
+    @Override
+    public ProductoDto registrarProducto(Producto producto) {
+        ProductoDto productoDto = objectMapper.convertValue(productoRepository.save(producto), ProductoDto.class);
+        LOGGER.info("Se guardó el producto: {}", productoDto);
+        return productoDto;
+    }
 
     @Override
     public ProductoDto buscarProductoPorId(Long id) {
@@ -60,13 +66,6 @@ public class ProductoService implements IProductoService {
         }
 
         return productosDtos;
-    }
-
-    @Override
-    public ProductoDto registrarProducto(Producto producto) {
-        ProductoDto productoDto = objectMapper.convertValue(productoRepository.save(producto), ProductoDto.class);
-        LOGGER.info("Se guardó el producto: {}", productoDto);
-        return productoDto;
     }
 
 //    @Override

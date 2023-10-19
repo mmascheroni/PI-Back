@@ -7,11 +7,11 @@ import java.util.List;
 
 public interface IProductoService {
 
+    ProductoDto registrarProducto(Producto producto);
+
     ProductoDto buscarProductoPorId(Long id);
 
     List<ProductoDto> listarProductos();
-
-    ProductoDto registrarProducto(Producto producto);
 
     // ProductoDto actualizarProducto(Producto producto);
 
