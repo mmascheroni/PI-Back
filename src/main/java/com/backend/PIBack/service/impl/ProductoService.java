@@ -1,5 +1,6 @@
 package com.backend.PIBack.service.impl;
 
+import com.backend.PIBack.entity.Imagen;
 import com.backend.PIBack.service.IProductoService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.backend.PIBack.dto.ProductoDto;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.backend.PIBack.repository.ProductoRepository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -32,7 +34,9 @@ public class ProductoService implements IProductoService {
     public ProductoDto registrarProducto(Producto producto) {
         ProductoDto productoDto = objectMapper.convertValue(productoRepository.save(producto), ProductoDto.class);
         LOGGER.info("Se guardó el producto: {}", productoDto);
-        return productoDto;
+
+        ProductoDto productoDto1 = new ProductoDto(productoDto.getId(), productoDto.getNombre(), productoDto.getDescripcion());
+        return productoDto1;
     }
 
     @Override
@@ -49,20 +53,28 @@ public class ProductoService implements IProductoService {
         return productoDto;
     }
 
+    public static List<String> obtenerUrls(List<Imagen> imagenes) {
+        List<String> urls = imagenes
+                .stream()
+                .map(Imagen::getUrl) // Mapear cada Imagen a su URL
+                .collect(Collectors.toList());
+
+        return urls;
+    }
+
     @Override
     public List<ProductoDto> listarProductos() {
         List<Producto> productos = productoRepository.findAll();
 
         List<ProductoDto> productosDtos = productos.stream().map(producto -> {
-
-
-            return new ProductoDto(producto.getId(), producto.getNombre(), producto.getDescripcion());
+            List<String> urls = obtenerUrls(producto.getImagenes());
+            return new ProductoDto(producto.getId(), producto.getNombre(), producto.getDescripcion(), urls);
         }).toList();
 
         if ( productosDtos.size() > 0 ) {
             LOGGER.info("Listado de productos: {}", productosDtos);
         } else {
-            LOGGER.warn("No existe paciente registrado en la base de datos: {}", productosDtos);
+            LOGGER.warn("No existe producto registrado en la base de datos: {}", productosDtos);
         }
 
         return productosDtos;
