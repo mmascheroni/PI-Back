@@ -1,7 +1,13 @@
 package com.backend.PIBack.dto;
 
+//import com.backend.PIBack.entity.Imagen;
+import com.backend.PIBack.entity.Imagen;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.backend.PIBack.entity.Producto;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ProductoDto {
 
@@ -11,7 +17,16 @@ public class ProductoDto {
 
     private String descripcion;
 
+    private List<String> imagenes;
+
     public ProductoDto() {
+    }
+
+    public ProductoDto(Long id, String nombre, String descripcion, List<String> imagenes) {
+        this.id = id;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.imagenes = imagenes;
     }
 
     public ProductoDto(Long id, String nombre, String descripcion) {
@@ -44,11 +59,29 @@ public class ProductoDto {
         this.descripcion = descripcion;
     }
 
+    public List<String> getImagenes() {
+        return imagenes;
+    }
+
+    public void setImagen(List<String> imagenes) {
+        this.imagenes = imagenes;
+    }
+
+
+    public static List<String> obtenerUrls(List<Imagen> imagenes) {
+        List<String> urls = imagenes
+                .stream()
+                .map(Imagen::getUrl) // Mapear cada Imagen a su URL
+                .collect(Collectors.toList());
+
+        return urls;
+    }
+
+
     public static ProductoDto fromProducto(Producto producto) {
+        List<String> urls = obtenerUrls(producto.getImagenes());
         return new ProductoDto(
-                producto.getId(),
-                producto.getNombre(),
-                producto.getDescripcion()
+                producto.getId(), producto.getNombre(), producto.getDescripcion(), urls
         );
     }
 
@@ -58,6 +91,7 @@ public class ProductoDto {
                 "id=" + id +
                 ", nombre='" + nombre + '\'' +
                 ", descripcion='" + descripcion + '\'' +
+                ", imagenes='" + imagenes+ '\'' +
                 '}';
     }
 }
