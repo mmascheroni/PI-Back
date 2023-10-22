@@ -1,3 +1,4 @@
+
 package com.backend.PIBack.dto;
 
 import com.backend.PIBack.entity.Imagen;
@@ -45,5 +46,6 @@ public class ImagenDto {
     public void setProducto(Producto producto) {
         this.producto = producto;
     }
+
 
 }
