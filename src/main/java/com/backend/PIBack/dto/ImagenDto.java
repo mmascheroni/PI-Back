@@ -1,3 +1,4 @@
+
 package com.backend.PIBack.dto;
 
 import com.backend.PIBack.entity.Imagen;
@@ -53,10 +54,6 @@ public class ImagenDto {
         this.producto = producto;
     }
 
-//    public static ImagenDto fromImagen(Imagen imagen) {
-//        Long producto = imagen.getProducto().getId();
-//        return new ImagenDto(imagen.getId(), imagen.getUrl(), producto);
-//    }
 
     @Override
     public String toString() {
@@ -66,4 +63,5 @@ public class ImagenDto {
                 ", producto=" + producto +
                 '}';
     }
+
 }
