@@ -1,11 +1,7 @@
 package com.backend.PIBack.service.impl;
 
-//import com.backend.PIBack.dto.ImagenDto;
-//import com.backend.PIBack.entity.Imagen;
 import com.backend.PIBack.dto.ImagenDto;
-import com.backend.PIBack.dto.ProductoDto;
 import com.backend.PIBack.entity.Imagen;
-import com.backend.PIBack.entity.Producto;
 import com.backend.PIBack.repository.ImagenRepository;
 import com.backend.PIBack.service.IImagenService;
 import com.fasterxml.jackson.databind.ObjectMapper;
