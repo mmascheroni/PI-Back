@@ -2,13 +2,16 @@ package com.backend.PIBack.dto;
 
 //import com.backend.PIBack.entity.Imagen;
 import com.backend.PIBack.entity.Imagen;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.backend.PIBack.entity.Producto;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ProductoDto {
 
     private Long id;
@@ -22,17 +25,18 @@ public class ProductoDto {
     public ProductoDto() {
     }
 
+    public ProductoDto(Long id, String nombre, String descripcion) {
+        this.id = id;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+    }
+
+
     public ProductoDto(Long id, String nombre, String descripcion, List<String> imagenes) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.imagenes = imagenes;
-    }
-
-    public ProductoDto(Long id, String nombre, String descripcion) {
-        this.id = id;
-        this.nombre = nombre;
-        this.descripcion = descripcion;
     }
 
     public Long getId() {
@@ -59,6 +63,7 @@ public class ProductoDto {
         this.descripcion = descripcion;
     }
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getImagenes() {
         return imagenes;
     }
@@ -87,11 +92,11 @@ public class ProductoDto {
 
     @Override
     public String toString() {
-        return "ProductoDto{" +
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                ", descripcion='" + descripcion + '\'' +
-                ", imagenes='" + imagenes+ '\'' +
-                '}';
+            return "ProductoDto{" +
+                    "id=" + id +
+                    ", nombre='" + nombre + '\'' +
+                    ", descripcion='" + descripcion + '\'' +
+                    ", imagenes='" + imagenes+ '\'' +
+                    '}';
     }
 }

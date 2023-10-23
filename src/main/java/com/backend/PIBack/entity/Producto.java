@@ -1,5 +1,6 @@
 package com.backend.PIBack.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
@@ -19,7 +20,8 @@ public class Producto {
 
     private String descripcion;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "producto")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "producto", orphanRemoval = true)
+    @JsonIgnore
     private List<Imagen> imagenes;
 
     public Producto() {

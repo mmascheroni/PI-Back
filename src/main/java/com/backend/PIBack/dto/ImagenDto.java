@@ -3,21 +3,28 @@ package com.backend.PIBack.dto;
 
 import com.backend.PIBack.entity.Imagen;
 import com.backend.PIBack.entity.Producto;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.*;
+
+import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class ImagenDto {
 
     private Long id;
 
     private String url;
 
-    private Producto producto;
+    private ProductoDto producto;
 
     public ImagenDto() {
     }
 
-    public ImagenDto(Long id, String url, Producto producto) {
+    public ImagenDto(String url) {
+        this.url = url;
+    }
+
+    public ImagenDto(Long id, String url, ProductoDto producto) {
         this.id = id;
         this.url = url;
         this.producto = producto;
@@ -39,13 +46,22 @@ public class ImagenDto {
         this.url = url;
     }
 
-    public Producto getProducto() {
+    public ProductoDto getProducto() {
         return producto;
     }
 
-    public void setProducto(Producto producto) {
+    public void setProducto(ProductoDto producto) {
         this.producto = producto;
     }
 
+
+    @Override
+    public String toString() {
+        return "ImagenDto{" +
+                "id=" + id +
+                ", url='" + url + '\'' +
+                ", producto=" + producto +
+                '}';
+    }
 
 }

@@ -1,11 +1,7 @@
 package com.backend.PIBack.service.impl;
 
-//import com.backend.PIBack.dto.ImagenDto;
-//import com.backend.PIBack.entity.Imagen;
 import com.backend.PIBack.dto.ImagenDto;
-import com.backend.PIBack.dto.ProductoDto;
 import com.backend.PIBack.entity.Imagen;
-import com.backend.PIBack.entity.Producto;
 import com.backend.PIBack.repository.ImagenRepository;
 import com.backend.PIBack.service.IImagenService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -53,11 +49,9 @@ public class ImagenService implements IImagenService {
     public List<ImagenDto> listarImagenes() {
         List<Imagen> imagenes = imagenRepository.findAll();
 
-        List<ImagenDto> imagenesDtos = imagenes.stream().map(imagen -> {
+        List<ImagenDto> imagenesDtos = imagenes.stream()
+                .map(imagen ->  objectMapper.convertValue(imagen, ImagenDto.class)).toList();
 
-
-            return new ImagenDto(imagen.getId(), imagen.getUrl(), imagen.getProducto());
-        }).toList();
 
         if ( imagenesDtos.size() > 0 ) {
             LOGGER.info("Listado de imagenes: {}", imagenesDtos);
