@@ -36,6 +36,11 @@ public class ProductoController {
         return productoService.listarProductos();
     }
 
+    @GetMapping("/random")
+    public List<ProductoDto> listarProductosAleatorios() {
+        return productoService.listarProductosAleatorios();
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<ProductoDto> buscarProductoPorId(@PathVariable Long id) {
         ProductoDto productoEncontrado = productoService.buscarProductoPorId(id);
