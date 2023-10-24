@@ -13,6 +13,8 @@ public interface IProductoService {
 
     List<ProductoDto> listarProductos();
 
+    List<ProductoDto> listarProductosAleatorios();
+
     // ProductoDto actualizarProducto(Producto producto);
 
     void eliminarProducto(Long id);

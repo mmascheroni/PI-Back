@@ -80,6 +80,24 @@ public class ProductoService implements IProductoService {
         return productosDtos;
     }
 
+    @Override
+    public List<ProductoDto> listarProductosAleatorios() {
+        List<Producto> productos = productoRepository.listarProductosAleatorios();
+
+        List<ProductoDto> productosDtos = productos.stream().map(producto -> {
+            List<String> urls = obtenerUrls(producto.getImagenes());
+            return new ProductoDto(producto.getId(), producto.getNombre(), producto.getDescripcion(), urls);
+        }).toList();
+
+        if ( productosDtos.size() > 0 ) {
+            LOGGER.info("Listado Aleatorio de productos: {}", productosDtos);
+        } else {
+            LOGGER.warn("No existe producto registrado en la base de datos: {}", productosDtos);
+        }
+
+        return productosDtos;
+    }
+
 //    @Override
 //    public ProductoDto actualizarProducto(Producto producto) {
 //        return null;
