@@ -9,6 +9,9 @@ import com.backend.PIBack.entity.Producto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import com.backend.PIBack.repository.ProductoRepository;
 
@@ -62,9 +65,10 @@ public class ProductoService implements IProductoService {
         return urls;
     }
 
+
     @Override
-    public List<ProductoDto> listarProductos() {
-        List<Producto> productos = productoRepository.findAll();
+    public List<ProductoDto> listarProductos(Pageable pageable) {
+        Page<Producto> productos = productoRepository.findAll(pageable);
 
         List<ProductoDto> productosDtos = productos.stream().map(producto -> {
             List<String> urls = obtenerUrls(producto.getImagenes());
