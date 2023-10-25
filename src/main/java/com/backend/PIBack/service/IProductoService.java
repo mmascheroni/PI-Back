@@ -12,7 +12,8 @@ public interface IProductoService {
 
     ProductoDto buscarProductoPorId(Long id);
 
-    List<ProductoDto> listarProductos(Pageable pageable);
+    List<ProductoDto> listarProductos();
+    List<ProductoDto> listarProductosPaging(Pageable pageable);
 
     List<ProductoDto> listarProductosAleatorios();
 

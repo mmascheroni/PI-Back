@@ -65,9 +65,27 @@ public class ProductoService implements IProductoService {
         return urls;
     }
 
+    @Override
+    public List<ProductoDto> listarProductos() {
+        List<Producto> productos = productoRepository.findAll();
+
+        List<ProductoDto> productosDtos = productos.stream().map(producto -> {
+            List<String> urls = obtenerUrls(producto.getImagenes());
+            return new ProductoDto(producto.getId(), producto.getNombre(), producto.getDescripcion(), urls);
+        }).toList();
+
+        if ( productosDtos.size() > 0 ) {
+            LOGGER.info("Listado de productos: {}", productosDtos);
+        } else {
+            LOGGER.warn("No existe producto registrado en la base de datos: {}", productosDtos);
+        }
+
+        return productosDtos;
+    }
+
 
     @Override
-    public List<ProductoDto> listarProductos(Pageable pageable) {
+    public List<ProductoDto> listarProductosPaging(Pageable pageable) {
         Page<Producto> productos = productoRepository.findAll(pageable);
 
         List<ProductoDto> productosDtos = productos.stream().map(producto -> {

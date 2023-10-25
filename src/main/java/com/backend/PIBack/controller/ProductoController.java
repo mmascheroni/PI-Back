@@ -32,10 +32,15 @@ public class ProductoController {
     }
 
     //GET
-
     @GetMapping
-    public List<ProductoDto> listarProductos(@PageableDefault(page = 0, size = 5) Pageable pageable) {
-        return productoService.listarProductos(pageable);
+    public List<ProductoDto> listarProductos() {
+        return productoService.listarProductos();
+    }
+
+
+    @GetMapping("/paging")
+    public List<ProductoDto> listarProductosPaging(@PageableDefault(page = 0, size = 5) Pageable pageable) {
+        return productoService.listarProductosPaging(pageable);
     }
 
     @GetMapping("/random")
