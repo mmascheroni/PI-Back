@@ -9,6 +9,9 @@ import com.backend.PIBack.entity.Producto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import com.backend.PIBack.repository.ProductoRepository;
 
@@ -73,6 +76,43 @@ public class ProductoService implements IProductoService {
 
         if ( productosDtos.size() > 0 ) {
             LOGGER.info("Listado de productos: {}", productosDtos);
+        } else {
+            LOGGER.warn("No existe producto registrado en la base de datos: {}", productosDtos);
+        }
+
+        return productosDtos;
+    }
+
+
+    @Override
+    public List<ProductoDto> listarProductosPaging(Pageable pageable) {
+        Page<Producto> productos = productoRepository.findAll(pageable);
+
+        List<ProductoDto> productosDtos = productos.stream().map(producto -> {
+            List<String> urls = obtenerUrls(producto.getImagenes());
+            return new ProductoDto(producto.getId(), producto.getNombre(), producto.getDescripcion(), urls);
+        }).toList();
+
+        if ( productosDtos.size() > 0 ) {
+            LOGGER.info("Listado de productos: {}", productosDtos);
+        } else {
+            LOGGER.warn("No existe producto registrado en la base de datos: {}", productosDtos);
+        }
+
+        return productosDtos;
+    }
+
+    @Override
+    public List<ProductoDto> listarProductosAleatorios() {
+        List<Producto> productos = productoRepository.listarProductosAleatorios();
+
+        List<ProductoDto> productosDtos = productos.stream().map(producto -> {
+            List<String> urls = obtenerUrls(producto.getImagenes());
+            return new ProductoDto(producto.getId(), producto.getNombre(), producto.getDescripcion(), urls);
+        }).toList();
+
+        if ( productosDtos.size() > 0 ) {
+            LOGGER.info("Listado Aleatorio de productos: {}", productosDtos);
         } else {
             LOGGER.warn("No existe producto registrado en la base de datos: {}", productosDtos);
         }
