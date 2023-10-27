@@ -44,8 +44,8 @@ public class ProductoController {
     }
 
     @GetMapping("/random")
-    public List<ProductoDto> listarProductosAleatorios() {
-        return productoService.listarProductosAleatorios();
+    public List<ProductoDto> listarProductosAleatorios(@RequestParam(name = "limite") int limite) {
+        return productoService.listarProductosAleatorios(limite);
     }
 
     @GetMapping("/{id}")

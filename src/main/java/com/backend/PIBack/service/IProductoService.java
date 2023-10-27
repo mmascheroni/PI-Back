@@ -15,7 +15,7 @@ public interface IProductoService {
     List<ProductoDto> listarProductos();
     List<ProductoDto> listarProductosPaging(Pageable pageable);
 
-    List<ProductoDto> listarProductosAleatorios();
+    List<ProductoDto> listarProductosAleatorios(int limite);
 
     // ProductoDto actualizarProducto(Producto producto);
 
