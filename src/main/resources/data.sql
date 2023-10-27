@@ -22,7 +22,7 @@ INSERT INTO productos (nombre, descripcion) VALUES ("PEDAL EFECTOS TRV1 REVERB S
 INSERT INTO imagenes (url, producto_id) VALUES ("https://f.fcdn.app/imgs/0e16f3/www.coutinhomusic.com/coutuy/12e8/webp/catalogo/C405MNAT-C405MNAT_1/2000-2000/guitarra-clasica-stagg-c405-1-4-natural-guitarra-clasica-stagg-c405-1-4-natural.jpg", 1);
 
 --Imagen Producto 2
-INSERT INTO imagenes (url, producto_id) VALUES ("https://f.fcdn.app/imgs/3cc179/www.coutinhomusic.com/coutuy/640b/webp/catalogo/SCL50BLK-SCL50BLK_1/2000-2000/guitarra-clasica-stagg-scl50-black-guitarra-clasica-stagg-scl50-black.jpg", 2);
+INSERT INTO imagenes (url, producto_id) VALUES ("https://f.fcdn.app/imgs/4a1da7/www.coutinhomusic.com/coutuy/5aa7/webp/catalogo/SCL50BLK-SCL50BLK_4/2000-2000/guitarra-clasica-stagg-scl50-black-guitarra-clasica-stagg-scl50-black.jpg", 2);
 
 INSERT INTO imagenes (url, producto_id) VALUES ("https://f.fcdn.app/imgs/4a1da7/www.coutinhomusic.com/coutuy/5aa7/webp/catalogo/SCL50BLK-SCL50BLK_4/2000-2000/guitarra-clasica-stagg-scl50-black-guitarra-clasica-stagg-scl50-black.jpg", 2);
 
