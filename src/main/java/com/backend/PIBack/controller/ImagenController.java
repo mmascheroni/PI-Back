@@ -6,13 +6,14 @@ import com.backend.PIBack.service.impl.ImagenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/imagen")
+@RequestMapping("api/imagen")
 public class ImagenController {
 
     private ImagenService imagenService;
@@ -23,17 +24,20 @@ public class ImagenController {
     }
 
     //POST
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/registrar")
     public ResponseEntity<ImagenDto> registarImagen(@RequestBody Imagen imagen) {
         return ResponseEntity.status(HttpStatus.CREATED).body(imagenService.registrarImagen(imagen));
     }
 
     //GET
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping
     public List<ImagenDto> listarImagenes() {
         return imagenService.listarImagenes();
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/{id}")
     public ResponseEntity<ImagenDto> buscarImagenPorId(@PathVariable Long id) {
         ImagenDto imagenEncontrada = imagenService.buscarImagenPorId(id);
@@ -42,6 +46,7 @@ public class ImagenController {
 
 
     //DELETE
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/eliminar/{id}")
     public ResponseEntity<?> eliminarImagen(@PathVariable Long id) {
         imagenService.eliminarImagen(id);

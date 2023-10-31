@@ -14,39 +14,63 @@ INSERT INTO productos (nombre, descripcion) VALUES ("Tester Behringer Ct200", "A
 
 INSERT INTO productos (nombre, descripcion) VALUES ("Piano Digital Yamaha Csp170b C/banqueta", "Clavinova es una innovadora gama de pianos digitales en continua evolución, siempre buscando proporcionar el tacto y el sonido de un piano de cola, que es la máxima expresión de la excelencia en piano.");
 
-INSERT INTO productos (nombre, descripcion) VALUES ("Block Memphis Dp205 Infantil, Madera, Guiro", "Block Memphis Dp205 Infantil, Madera, Guiro.");
+INSERT INTO productos (nombre, descripcion) VALUES ("Piano Digital Casio Cdps100 Bk", "La nueva serie CDP-S de teclados Casio inspira con características destacadas: nueva acción de martillo, nueva generación de sonido.");
 
 INSERT INTO productos (nombre, descripcion) VALUES ("Violin Cremona Sv130 4/4", "Saga siempre ha sido pionera en lo que respecta a la fabricación de violines de calidad para satisfacer las demandas del creciente mercado estudiantil.");
 
 --Imagen Producto 1
 INSERT INTO imagenes (url, producto_id) VALUES ("https://img-c9-g2-bucket.s3.amazonaws.com/Guitarra-Clasica.jpg", 1);
+INSERT INTO imagenes (url, producto_id) VALUES ("https://img-c9-g2-bucket.s3.amazonaws.com/Guitarra-Clasica2.jpg", 1);
+INSERT INTO imagenes (url, producto_id) VALUES ("https://img-c9-g2-bucket.s3.amazonaws.com/Guitarra-Clasica3.jpg", 1);
 
 --Imagen Producto 2
 INSERT INTO imagenes (url, producto_id) VALUES ("https://img-c9-g2-bucket.s3.amazonaws.com/Microfono.jpg", 2);
+INSERT INTO imagenes (url, producto_id) VALUES ("https://img-c9-g2-bucket.s3.amazonaws.com/Microfono2.webp", 2);
+INSERT INTO imagenes (url, producto_id) VALUES ("https://img-c9-g2-bucket.s3.amazonaws.com/Microfono3.webp", 2);
+INSERT INTO imagenes (url, producto_id) VALUES ("https://img-c9-g2-bucket.s3.amazonaws.com/Microfono4.webp", 2);
 
 --Imagen Producto 3
 INSERT INTO imagenes (url, producto_id) VALUES ("https://img-c9-g2-bucket.s3.amazonaws.com/Bateria.jpg", 3);
+INSERT INTO imagenes (url, producto_id) VALUES ("https://img-c9-g2-bucket.s3.amazonaws.com/Bateria2.webp", 3);
 
 --Imagen Producto 4
 INSERT INTO imagenes (url, producto_id) VALUES ("https://img-c9-g2-bucket.s3.amazonaws.com/Guitarra-Electrica.jpg", 4);
+INSERT INTO imagenes (url, producto_id) VALUES ("https://img-c9-g2-bucket.s3.amazonaws.com/Guitarra-Electrica2.webp", 4);
+
+INSERT INTO imagenes (url, producto_id) VALUES ("https://img-c9-g2-bucket.s3.amazonaws.com/Guitarra-Electrica3.webp", 4);
+
 
 --Imagen Producto 5
 INSERT INTO imagenes (url, producto_id) VALUES ("https://img-c9-g2-bucket.s3.amazonaws.com/guitarra-electrica-epiphone.jpg", 5);
+INSERT INTO imagenes (url, producto_id) VALUES ("https://img-c9-g2-bucket.s3.amazonaws.com/Guitarra-Electrica-Epiphone.webp", 5);
+INSERT INTO imagenes (url, producto_id) VALUES ("https://img-c9-g2-bucket.s3.amazonaws.com/Guitarra-Electrica-Epiphone2.webp", 5);
+INSERT INTO imagenes (url, producto_id) VALUES ("https://img-c9-g2-bucket.s3.amazonaws.com/Guitarra-Electrica-Epiphone3.webp", 5);
 
 --Imagen Producto 6
 INSERT INTO imagenes (url, producto_id) VALUES ("https://img-c9-g2-bucket.s3.amazonaws.com/Amplificador.jpg", 6);
+INSERT INTO imagenes (url, producto_id) VALUES ("https://img-c9-g2-bucket.s3.amazonaws.com/Amplificador.webp", 6);
 
 --Imagen Producto 7
 INSERT INTO imagenes (url, producto_id) VALUES ("https://img-c9-g2-bucket.s3.amazonaws.com/tester.jpg", 7);
+INSERT INTO imagenes (url, producto_id) VALUES ("https://img-c9-g2-bucket.s3.amazonaws.com/Tester2.webp", 7);
+INSERT INTO imagenes (url, producto_id) VALUES ("https://img-c9-g2-bucket.s3.amazonaws.com/Tester3.webp", 7);
+INSERT INTO imagenes (url, producto_id) VALUES ("https://img-c9-g2-bucket.s3.amazonaws.com/Tester4.webp", 7);
 
 --Imagen Producto 8
 INSERT INTO imagenes (url, producto_id) VALUES ("https://img-c9-g2-bucket.s3.amazonaws.com/Piano.jpg", 8);
+INSERT INTO imagenes (url, producto_id) VALUES ("https://img-c9-g2-bucket.s3.amazonaws.com/Piano2.webp", 8);
+INSERT INTO imagenes (url, producto_id) VALUES ("https://img-c9-g2-bucket.s3.amazonaws.com/Piano3.webp", 8);
 
 --Imagen Producto 9
-INSERT INTO imagenes (url, producto_id) VALUES ("https://img-c9-g2-bucket.s3.amazonaws.com/Guiro-Madera.jpg", 9);
+INSERT INTO imagenes (url, producto_id) VALUES ("https://img-c9-g2-bucket.s3.amazonaws.com/Teclado-Casio1.webp", 9);
+INSERT INTO imagenes (url, producto_id) VALUES ("https://img-c9-g2-bucket.s3.amazonaws.com/Teclado-Casio2.webp", 9);
+INSERT INTO imagenes (url, producto_id) VALUES ("https://img-c9-g2-bucket.s3.amazonaws.com/Teclado-Casio3.webp", 9);
+INSERT INTO imagenes (url, producto_id) VALUES ("https://img-c9-g2-bucket.s3.amazonaws.com/Teclado-Casio4.webp", 9);
 
 --Imagen Producto 10
 INSERT INTO imagenes (url, producto_id) VALUES ("https://img-c9-g2-bucket.s3.amazonaws.com/Violin-Cremona.jpg", 10);
+INSERT INTO imagenes (url, producto_id) VALUES ("https://img-c9-g2-bucket.s3.amazonaws.com/Violin1.webp", 10);
+INSERT INTO imagenes (url, producto_id) VALUES ("https://img-c9-g2-bucket.s3.amazonaws.com/Violin2.webp", 10);
 
 
 

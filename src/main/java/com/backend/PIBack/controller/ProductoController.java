@@ -9,13 +9,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/producto")
+@RequestMapping("api/producto")
 public class ProductoController {
 
     private ProductoService productoService;
@@ -26,6 +27,7 @@ public class ProductoController {
     }
 
     //POST
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/registrar")
     public ResponseEntity<ProductoDto> registarProducto(@RequestBody Producto producto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(productoService.registrarProducto(producto));
@@ -56,6 +58,7 @@ public class ProductoController {
 
 
     //DELETE
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/eliminar/{id}")
     public ResponseEntity<?> eliminarProducto(@PathVariable Long id) {
         productoService.eliminarProducto(id);
