@@ -12,7 +12,7 @@ public class PiBackApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(PiBackApplication.class, args);
-		LOGGER.info("Inicializando Sinfonía Perfecta ...");
+		LOGGER.info("Inicializando Sinfonía...");
 	}
 
 }

@@ -103,8 +103,8 @@ public class ProductoService implements IProductoService {
     }
 
     @Override
-    public List<ProductoDto> listarProductosAleatorios() {
-        List<Producto> productos = productoRepository.listarProductosAleatorios();
+    public List<ProductoDto> listarProductosAleatorios(int limite) {
+        List<Producto> productos = productoRepository.listarProductosAleatorios(limite);
 
         List<ProductoDto> productosDtos = productos.stream().map(producto -> {
             List<String> urls = obtenerUrls(producto.getImagenes());
