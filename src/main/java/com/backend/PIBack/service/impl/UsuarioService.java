@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,6 +18,7 @@ public class UsuarioService implements IUsuarioService {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(UsuarioService.class);
     private final UsuarioRepository usuarioRepository;
+
     private final ObjectMapper objectMapper;
 
 
@@ -28,6 +30,12 @@ public class UsuarioService implements IUsuarioService {
 
     @Override
     public UsuarioDto registrarUsuario(Usuario usuario) {
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+
+        String passwordUsuario = bCryptPasswordEncoder.encode(usuario.getPassword());
+
+        usuario.setPassword(passwordUsuario);
+
         UsuarioDto usuarioDto = objectMapper.convertValue(usuarioRepository.save(usuario), UsuarioDto.class);
 
         LOGGER.info("Se guardó el usuario: {}", usuarioDto);
