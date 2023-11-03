@@ -1,6 +1,7 @@
 package com.backend.PIBack.service;
 
 import com.backend.PIBack.dto.ProductoDto;
+import com.backend.PIBack.entity.Categoria;
 import com.backend.PIBack.entity.Producto;
 import org.springframework.data.domain.Pageable;
 
@@ -17,7 +18,7 @@ public interface IProductoService {
 
     List<ProductoDto> listarProductosAleatorios(int limite);
 
-    // ProductoDto actualizarProducto(Producto producto);
+    ProductoDto actualizarProducto(Producto producto);
 
     void eliminarProducto(Long id);
 }

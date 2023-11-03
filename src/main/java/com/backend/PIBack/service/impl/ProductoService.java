@@ -1,6 +1,9 @@
 package com.backend.PIBack.service.impl;
 
+import com.backend.PIBack.dto.UsuarioDto;
+import com.backend.PIBack.entity.Categoria;
 import com.backend.PIBack.entity.Imagen;
+import com.backend.PIBack.entity.Usuario;
 import com.backend.PIBack.service.IProductoService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.backend.PIBack.dto.ProductoDto;
@@ -38,9 +41,10 @@ public class ProductoService implements IProductoService {
         ProductoDto productoDto = objectMapper.convertValue(productoRepository.save(producto), ProductoDto.class);
         LOGGER.info("Se guardó el producto: {}", productoDto);
 
-        ProductoDto productoDto1 = new ProductoDto(productoDto.getId(), productoDto.getNombre(), productoDto.getDescripcion());
+        ProductoDto productoDto1 = new ProductoDto(productoDto.getId(), productoDto.getNombre(), productoDto.getDescripcion(), productoDto.getCategoria());
         return productoDto1;
     }
+
 
     @Override
     public ProductoDto buscarProductoPorId(Long id) {
@@ -71,7 +75,7 @@ public class ProductoService implements IProductoService {
 
         List<ProductoDto> productosDtos = productos.stream().map(producto -> {
             List<String> urls = obtenerUrls(producto.getImagenes());
-            return new ProductoDto(producto.getId(), producto.getNombre(), producto.getDescripcion(), urls);
+            return new ProductoDto(producto.getId(), producto.getNombre(), producto.getDescripcion(), urls, producto.getCategoria());
         }).toList();
 
         if ( productosDtos.size() > 0 ) {
@@ -90,7 +94,7 @@ public class ProductoService implements IProductoService {
 
         List<ProductoDto> productosDtos = productos.stream().map(producto -> {
             List<String> urls = obtenerUrls(producto.getImagenes());
-            return new ProductoDto(producto.getId(), producto.getNombre(), producto.getDescripcion(), urls);
+            return new ProductoDto(producto.getId(), producto.getNombre(), producto.getDescripcion(), urls, producto.getCategoria());
         }).toList();
 
         if ( productosDtos.size() > 0 ) {
@@ -108,7 +112,7 @@ public class ProductoService implements IProductoService {
 
         List<ProductoDto> productosDtos = productos.stream().map(producto -> {
             List<String> urls = obtenerUrls(producto.getImagenes());
-            return new ProductoDto(producto.getId(), producto.getNombre(), producto.getDescripcion(), urls);
+            return new ProductoDto(producto.getId(), producto.getNombre(), producto.getDescripcion(), urls, producto.getCategoria());
         }).toList();
 
         if ( productosDtos.size() > 0 ) {
@@ -120,10 +124,24 @@ public class ProductoService implements IProductoService {
         return productosDtos;
     }
 
-//    @Override
-//    public ProductoDto actualizarProducto(Producto producto) {
-//        return null;
-//    }
+    @Override
+    public ProductoDto actualizarProducto(Producto producto) {
+        Producto productoAActualizar = productoRepository.findById(producto.getId()).orElse(null);
+        ProductoDto productoActualizadoDto = null;
+        if (productoAActualizar != null) {
+            // Actualiza las propiedades del producto existente con los datos del producto recibido.
+            productoAActualizar.setNombre(producto.getNombre());
+            productoAActualizar.setDescripcion(producto.getDescripcion());
+            productoAActualizar.setCategoria(producto.getCategoria()); // Asegúrate de manejar la categoría adecuadamente
+
+            productoActualizadoDto = objectMapper.convertValue(productoRepository.save(productoAActualizar), ProductoDto.class);
+            LOGGER.info("El producto con ID {} ha sido actualizado: {}", producto.getId(), productoActualizadoDto);
+        } else {
+            LOGGER.warn("No es posible actualizar el producto porque no está registrado en la base de datos");
+        }
+        return productoActualizadoDto;
+    }
+
 
     @Override
     public void eliminarProducto(Long id) {
@@ -134,4 +152,6 @@ public class ProductoService implements IProductoService {
             LOGGER.error("No se ha encontrado el producto con id " + id);
         }
     }
+
+
 }

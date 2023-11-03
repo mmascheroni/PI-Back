@@ -1,6 +1,8 @@
 package com.backend.PIBack.controller;
 
+import com.backend.PIBack.dto.CategoriaDto;
 import com.backend.PIBack.dto.ImagenDto;
+import com.backend.PIBack.entity.Categoria;
 import com.backend.PIBack.entity.Imagen;
 import com.backend.PIBack.service.impl.ImagenService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +46,12 @@ public class ImagenController {
         return ResponseEntity.ok(imagenEncontrada);
     }
 
+    //PUT
+    @PutMapping("/actualizar")
+    public ResponseEntity<ImagenDto> actualizarImagen(@RequestBody Imagen imagen) {
+        ImagenDto imagenActualizada = imagenService.actualizarImagen(imagen);
+        return ResponseEntity.ok(imagenActualizada);
+    }
 
     //DELETE
     @PreAuthorize("hasRole('ROLE_ADMIN')")
