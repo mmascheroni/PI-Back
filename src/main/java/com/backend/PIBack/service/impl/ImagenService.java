@@ -1,7 +1,9 @@
 package com.backend.PIBack.service.impl;
 
 import com.backend.PIBack.dto.ImagenDto;
+import com.backend.PIBack.dto.ProductoDto;
 import com.backend.PIBack.entity.Imagen;
+import com.backend.PIBack.entity.Producto;
 import com.backend.PIBack.repository.ImagenRepository;
 import com.backend.PIBack.service.IImagenService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -60,6 +62,20 @@ public class ImagenService implements IImagenService {
         }
 
         return imagenesDtos;
+    }
+
+    @Override
+    public ImagenDto actualizarImagen(Imagen imagen) {
+        Imagen imagenAActualizar = imagenRepository.findById(imagen.getId()).orElse(null);
+        ImagenDto imagenActualizadaDto = null;
+        if (imagenAActualizar != null) {
+            imagenAActualizar = imagen;
+            imagenActualizadaDto = registrarImagen(imagenAActualizar);
+            LOGGER.warn("La imagen con ID {} ha sido actualizada: {}", imagen.getId(), imagenActualizadaDto);
+        } else {
+            LOGGER.warn("No es posible actualizar la imagen porque no está registrada en la base de datos");
+        }
+        return imagenActualizadaDto;
     }
 
     @Override

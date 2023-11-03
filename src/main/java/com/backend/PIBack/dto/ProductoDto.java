@@ -1,6 +1,7 @@
 package com.backend.PIBack.dto;
 
 //import com.backend.PIBack.entity.Imagen;
+import com.backend.PIBack.entity.Categoria;
 import com.backend.PIBack.entity.Imagen;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -22,21 +23,25 @@ public class ProductoDto {
 
     private List<String> imagenes;
 
+    private Categoria  categoria;
+
     public ProductoDto() {
     }
 
-    public ProductoDto(Long id, String nombre, String descripcion) {
+    public ProductoDto(Long id, String nombre, String descripcion, Categoria categoria) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
+        this.categoria = categoria;
     }
 
-
-    public ProductoDto(Long id, String nombre, String descripcion, List<String> imagenes) {
+    public ProductoDto(Long id, String nombre, String descripcion, List<String> imagenes, Categoria categoria) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.imagenes = imagenes;
+        this.categoria = categoria;
+
     }
 
     public Long getId() {
@@ -72,6 +77,13 @@ public class ProductoDto {
         this.imagenes = imagenes;
     }
 
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
 
     public static List<String> obtenerUrls(List<Imagen> imagenes) {
         List<String> urls = imagenes
@@ -86,7 +98,7 @@ public class ProductoDto {
     public static ProductoDto fromProducto(Producto producto) {
         List<String> urls = obtenerUrls(producto.getImagenes());
         return new ProductoDto(
-                producto.getId(), producto.getNombre(), producto.getDescripcion(), urls
+                producto.getId(), producto.getNombre(), producto.getDescripcion(), urls, producto.getCategoria()
         );
     }
 

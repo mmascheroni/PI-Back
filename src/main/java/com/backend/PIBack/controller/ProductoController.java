@@ -1,7 +1,10 @@
 package com.backend.PIBack.controller;
 
 
+import com.backend.PIBack.dto.ImagenDto;
 import com.backend.PIBack.dto.ProductoDto;
+import com.backend.PIBack.entity.Categoria;
+import com.backend.PIBack.entity.Imagen;
 import com.backend.PIBack.entity.Producto;
 import com.backend.PIBack.service.impl.ProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +32,7 @@ public class ProductoController {
     //POST
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/registrar")
-    public ResponseEntity<ProductoDto> registarProducto(@RequestBody Producto producto) {
+    public ResponseEntity<ProductoDto> registrarProducto(@RequestBody Producto producto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(productoService.registrarProducto(producto));
     }
 
@@ -54,6 +57,13 @@ public class ProductoController {
     public ResponseEntity<ProductoDto> buscarProductoPorId(@PathVariable Long id) {
         ProductoDto productoEncontrado = productoService.buscarProductoPorId(id);
         return ResponseEntity.ok(productoEncontrado);
+    }
+
+    //PUT
+    @PutMapping("/actualizar")
+    public ResponseEntity<ProductoDto> actualizarProducto(@RequestBody Producto producto) {
+        ProductoDto productoActualizado = productoService.actualizarProducto(producto);
+        return ResponseEntity.ok(productoActualizado);
     }
 
 
