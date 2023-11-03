@@ -9,11 +9,13 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
 
 @Configuration
 public class SecurityConfig {
@@ -33,20 +35,25 @@ public class SecurityConfig {
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(customizeRequests -> {
                             customizeRequests
-                                    .requestMatchers("api/auth/**").permitAll()
+                                    .requestMatchers("/api/auth/**").permitAll()
+
+                                    .requestMatchers(HttpMethod.POST,"/api/usuarios/registrar").permitAll()
+
+                                    .requestMatchers(HttpMethod.PUT,"/api/usuarios/actualizar").hasAnyRole("USER", "ADMIN")
+
                                     .requestMatchers(HttpMethod.GET,"api/producto/**").permitAll()
 
-                                    .requestMatchers("api/imagen/**").hasRole("ADMIN")
+                                    .requestMatchers("/api/imagen/**").hasRole("ADMIN")
 
-                                    .requestMatchers("api/admin/**").hasRole("ADMIN")
+                                    .requestMatchers("/api/admin/**").hasRole("ADMIN")
 
-                                    .requestMatchers("api/usuario/**").hasRole("ADMIN")
+                                    .requestMatchers("/api/usuarios/**").hasRole("ADMIN")
 
-                                    .requestMatchers(HttpMethod.POST,"api/**").hasRole("ADMIN")
+                                    .requestMatchers(HttpMethod.POST,"/api/**").hasRole("ADMIN")
 
-                                    .requestMatchers(HttpMethod.PUT,"api/**").hasRole("ADMIN")
+                                    .requestMatchers(HttpMethod.PUT,"/api/**").hasRole("ADMIN")
 
-                                    .requestMatchers(HttpMethod.DELETE,"api/**").hasRole("ADMIN")
+                                    .requestMatchers(HttpMethod.DELETE,"/api/**").hasRole("ADMIN")
 
                                     .anyRequest()
                                     .authenticated();
@@ -56,6 +63,7 @@ public class SecurityConfig {
 
         return http.build();
     }
+
 
     @Bean
     public AuthenticationManager authenticationManager (AuthenticationConfiguration configuration) throws Exception {
