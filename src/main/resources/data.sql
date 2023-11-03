@@ -1,4 +1,4 @@
-INSERT INTO productos (nombre, descripcion) VALUES ("Guitarra Clasica 1/4 natural", "Guitarra clásica tamaño 1/4, recomendada especialmente para niños de (aprox.) entre 4 a 6 años.");
+INSERT INTO productos (categoria_id, nombre, descripcion) VALUES (1, "Guitarra Clasica 1/4 natural", "Guitarra clásica tamaño 1/4, recomendada especialmente para niños de (aprox.) entre 4 a 6 años.");
 
 INSERT INTO productos (nombre, descripcion) VALUES ("Micrófono Condensador Behringer Bv44 Usb", "El micrófono BV44 es el sueño de un transmisor en vivo hecho realidad! Este micrófono de condensador de calidad profesional tiene un diseño de ruido ultra bajo.");
 
@@ -71,6 +71,15 @@ INSERT INTO imagenes (url, producto_id) VALUES ("https://img-c9-g2-bucket.s3.ama
 INSERT INTO imagenes (url, producto_id) VALUES ("https://img-c9-g2-bucket.s3.amazonaws.com/Violin-Cremona.jpg", 10);
 INSERT INTO imagenes (url, producto_id) VALUES ("https://img-c9-g2-bucket.s3.amazonaws.com/Violin1.webp", 10);
 INSERT INTO imagenes (url, producto_id) VALUES ("https://img-c9-g2-bucket.s3.amazonaws.com/Violin2.webp", 10);
+
+-- Tabla de categorías
+INSERT INTO CATEGORIAS (nombre_categoria) VALUES
+    ('Guitarras'),
+    ('Bajos'),
+    ('Baterías y Percusion'),
+    ('Piano y Teclado'),
+    ('Trompetas'),
+    ('Accesorios');
 
 
 

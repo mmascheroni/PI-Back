@@ -24,19 +24,27 @@ public class Producto {
     @JsonIgnore
     private List<Imagen> imagenes;
 
+    @ManyToOne
+    @JoinColumn(name = "categoria_id")
+    private Categoria categoria;
+
     public Producto() {
     }
 
-    public Producto(String nombre, String descripcion) {
+
+    public Producto(String nombre, String descripcion, Categoria categoria) {
         this.nombre = nombre;
         this.descripcion = descripcion;
+        this.categoria = categoria;
     }
 
-    public Producto(String nombre, String descripcion, List<Imagen> imagenes) {
+    public Producto(String nombre, String descripcion, List<Imagen> imagenes, Categoria categoria) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.imagenes = imagenes;
+        this.categoria = categoria;
     }
+
 
 
     public Long getId() {
@@ -65,5 +73,14 @@ public class Producto {
 
     public void setImagenes(List<Imagen> imagenes) {
         this.imagenes = imagenes;
+    }
+
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
     }
 }

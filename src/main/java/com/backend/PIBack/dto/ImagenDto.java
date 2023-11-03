@@ -57,7 +57,7 @@ public class ImagenDto {
 
     @Override
     public String toString() {
-        return "ImagenDto{" +
+        return "Imagen {" +
                 "id=" + id +
                 ", url='" + url + '\'' +
                 ", producto=" + producto +

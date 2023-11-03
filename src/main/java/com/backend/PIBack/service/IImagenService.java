@@ -15,7 +15,7 @@ public interface IImagenService {
 
     List<ImagenDto> listarImagenes();
 
-    // ImagenDto actualizarImagen(Imagen imagen);
+    ImagenDto actualizarImagen(Imagen imagen);
 
     void eliminarImagen(Long id);
 }
