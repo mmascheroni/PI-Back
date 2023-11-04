@@ -41,7 +41,7 @@ public class ProductoService implements IProductoService {
         ProductoDto productoDto = objectMapper.convertValue(productoRepository.save(producto), ProductoDto.class);
         LOGGER.info("Se guardó el producto: {}", productoDto);
 
-        ProductoDto productoDto1 = new ProductoDto(productoDto.getId(), productoDto.getNombre(), productoDto.getDescripcion(), productoDto.getCategoria());
+        ProductoDto productoDto1 = new ProductoDto(productoDto.getId(), productoDto.getNombre(), productoDto.getDescripcion(), productoDto.getCategoria(), productoDto.getCaracteristicas());
         return productoDto1;
     }
 
@@ -75,7 +75,7 @@ public class ProductoService implements IProductoService {
 
         List<ProductoDto> productosDtos = productos.stream().map(producto -> {
             List<String> urls = obtenerUrls(producto.getImagenes());
-            return new ProductoDto(producto.getId(), producto.getNombre(), producto.getDescripcion(), urls, producto.getCategoria());
+            return new ProductoDto(producto.getId(), producto.getNombre(), producto.getDescripcion(), urls, producto.getCategoria(), producto.getCaracteristicas());
         }).toList();
 
         if ( productosDtos.size() > 0 ) {
@@ -94,7 +94,7 @@ public class ProductoService implements IProductoService {
 
         List<ProductoDto> productosDtos = productos.stream().map(producto -> {
             List<String> urls = obtenerUrls(producto.getImagenes());
-            return new ProductoDto(producto.getId(), producto.getNombre(), producto.getDescripcion(), urls, producto.getCategoria());
+            return new ProductoDto(producto.getId(), producto.getNombre(), producto.getDescripcion(), urls, producto.getCategoria(), producto.getCaracteristicas());
         }).toList();
 
         if ( productosDtos.size() > 0 ) {
@@ -112,7 +112,7 @@ public class ProductoService implements IProductoService {
 
         List<ProductoDto> productosDtos = productos.stream().map(producto -> {
             List<String> urls = obtenerUrls(producto.getImagenes());
-            return new ProductoDto(producto.getId(), producto.getNombre(), producto.getDescripcion(), urls, producto.getCategoria());
+            return new ProductoDto(producto.getId(), producto.getNombre(), producto.getDescripcion(), urls, producto.getCategoria(), producto.getCaracteristicas());
         }).toList();
 
         if ( productosDtos.size() > 0 ) {

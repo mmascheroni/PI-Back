@@ -28,24 +28,32 @@ public class Producto {
     @JoinColumn(name = "categoria_id")
     private Categoria categoria;
 
+    @ManyToMany
+    @JoinTable(
+            name = "producto_caracteristica",
+            joinColumns = @JoinColumn(name = "producto_id"),
+            inverseJoinColumns = @JoinColumn(name = "caracteristica_id")
+    )
+    private List<Caracteristica> caracteristicas;
+
     public Producto() {
     }
 
 
-    public Producto(String nombre, String descripcion, Categoria categoria) {
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-        this.categoria = categoria;
-    }
-
-    public Producto(String nombre, String descripcion, List<Imagen> imagenes, Categoria categoria) {
+    public Producto(String nombre, String descripcion, List<Imagen> imagenes, Categoria categoria, List<Caracteristica> caracteristicas) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.imagenes = imagenes;
         this.categoria = categoria;
+        this.caracteristicas = caracteristicas;
     }
 
-
+    public Producto(String nombre, String descripcion, Categoria categoria, List<Caracteristica> caracteristicas) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.categoria = categoria;
+        this.caracteristicas = caracteristicas;
+    }
 
     public Long getId() {
         return id;
@@ -82,5 +90,13 @@ public class Producto {
 
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
+    }
+
+    public List<Caracteristica> getCaracteristicas() {
+        return caracteristicas;
+    }
+
+    public void setCaracteristicas(List<Caracteristica> caracteristicas) {
+        this.caracteristicas = caracteristicas;
     }
 }
