@@ -46,20 +46,6 @@ public class ProductoService implements IProductoService {
     }
 
 
-    @Override
-    public ProductoDto buscarProductoPorId(Long id) {
-        Producto productoBuscado = productoRepository.findById(id).orElse(null);
-        ProductoDto productoDto = null;
-
-        if ( productoBuscado != null ) {
-            productoDto = objectMapper.convertValue(productoBuscado, ProductoDto.class);
-            LOGGER.info("Producto encontrado: {}", productoDto);
-        } else {
-            LOGGER.error("El producto buscado con id {}, no se encuentra registrado en la base de datos", id);
-        }
-        return productoDto;
-    }
-
     public static List<String> obtenerUrls(List<Imagen> imagenes) {
         List<String> urls = imagenes
                 .stream()
@@ -68,6 +54,24 @@ public class ProductoService implements IProductoService {
 
         return urls;
     }
+
+
+    @Override
+    public ProductoDto buscarProductoPorId(Long id) {
+        Producto productoBuscado = productoRepository.findById(id).orElse(null);
+        ProductoDto productoDto = null;
+
+        if ( productoBuscado != null ) {
+            List<String> urls = obtenerUrls(productoBuscado.getImagenes());
+            productoDto = objectMapper.convertValue(productoBuscado, ProductoDto.class);
+            productoDto.setImagen(urls);
+            LOGGER.info("Producto encontrado: {}", productoDto);
+        } else {
+            LOGGER.error("El producto buscado con id {}, no se encuentra registrado en la base de datos", id);
+        }
+        return productoDto;
+    }
+
 
     @Override
     public List<ProductoDto> listarProductos() {

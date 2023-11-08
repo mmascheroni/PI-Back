@@ -52,28 +52,34 @@ public class AuthController {
 
         LoginDto loginDtoSecure = LoginDto.fromLogin(loginDto);
 
+
         Optional<Usuario> usuario = usuarioRepository.findByEmail(loginDto.getEmail());
 
-        String htmlBody = "<html><body>" +
-                "<p>Hola " + usuario.get().getNombre() + "!</p>" +
-                "<p>Te notificamos que el inicio de sesión se ha realizado de manera exitosa.</p>" +
-                "<p>Si tienes alguna pregunta o necesitas asistencia, no dudes en contactarnos.</p>" +
-                "<p>Saludos,<br>Sinfonía</p>" +
-                "<br>" +
-                "<img src='https://img-c9-g2-bucket.s3.amazonaws.com/Email/LogoSinfoniaEmail.png' alt='Logo'>" +
-                "<br>" +
-                "<b>Sinfonía - Equipo de Soporte Técnico" +
-                "<br>" +
-                "<img src='https://img-c9-g2-bucket.s3.amazonaws.com/Email/separador.png' alt='Separador'>" +
-                "<br>" +
-                "<img src='https://img-c9-g2-bucket.s3.amazonaws.com/Email/face-b.png' alt='ico-Facebook' style='margin-right: 15px;'>" +
-                "<img src='https://img-c9-g2-bucket.s3.amazonaws.com/Email/instagram-b.png' alt='ico-Instagram' style='margin-right: 15px;'>" +
-                "<img src='https://img-c9-g2-bucket.s3.amazonaws.com/Email/twitter-b.png' alt='ico-Twitter' style='margin-right: 15px;'>" +
-                "<img src='https://img-c9-g2-bucket.s3.amazonaws.com/Email/youtube-b.png' alt='ico-Youtube' style='margin-right: 15px;'>" +
-                "<img src='https://img-c9-g2-bucket.s3.amazonaws.com/Email/mapa-b.png' alt='ico-mapa'>" +
-                "</body></html>";
+        loginDtoSecure.setUsuarioId(usuario.get().getId());
+        loginDtoSecure.setNombre(usuario.get().getNombre());
+        loginDtoSecure.setApellido(usuario.get().getApellido());
+        loginDtoSecure.setRole(String.valueOf(usuario.get().getRole()));
 
-        emailService.sendWithImageFromURL("pi.sinfonia23@gmail.com", loginDto.getEmail(), "Has iniciado sesión correctamente", htmlBody);
+//        String htmlBody = "<html><body>" +
+//                "<p>Hola " + usuario.get().getNombre() + "!</p>" +
+//                "<p>Te notificamos que el inicio de sesión se ha realizado de manera exitosa.</p>" +
+//                "<p>Si tienes alguna pregunta o necesitas asistencia, no dudes en contactarnos.</p>" +
+//                "<p>Saludos,<br>Sinfonía</p>" +
+//                "<br>" +
+//                "<img src='https://img-c9-g2-bucket.s3.amazonaws.com/Email/LogoSinfoniaEmail.png' alt='Logo'>" +
+//                "<br>" +
+//                "<b>Sinfonía - Equipo de Soporte Técnico" +
+//                "<br>" +
+//                "<img src='https://img-c9-g2-bucket.s3.amazonaws.com/Email/separador.png' alt='Separador'>" +
+//                "<br>" +
+//                "<img src='https://img-c9-g2-bucket.s3.amazonaws.com/Email/face-b.png' alt='ico-Facebook' style='margin-right: 15px;'>" +
+//                "<img src='https://img-c9-g2-bucket.s3.amazonaws.com/Email/instagram-b.png' alt='ico-Instagram' style='margin-right: 15px;'>" +
+//                "<img src='https://img-c9-g2-bucket.s3.amazonaws.com/Email/twitter-b.png' alt='ico-Twitter' style='margin-right: 15px;'>" +
+//                "<img src='https://img-c9-g2-bucket.s3.amazonaws.com/Email/youtube-b.png' alt='ico-Youtube' style='margin-right: 15px;'>" +
+//                "<img src='https://img-c9-g2-bucket.s3.amazonaws.com/Email/mapa-b.png' alt='ico-mapa'>" +
+//                "</body></html>";
+
+        emailService.sendWithImageFromURLLogin("pi.sinfonia23@gmail.com", loginDto.getEmail(), "Has iniciado sesión correctamente", usuario);
 
         return ResponseEntity.ok().header(HttpHeaders.AUTHORIZATION, jwt).body(loginDtoSecure);
     }

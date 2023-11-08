@@ -4,7 +4,15 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 
 public class LoginDto {
 
+    private Long usuarioId;
+
+    private String nombre;
+
+    private String apellido;
+
     private String email;
+
+    private String role;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String password;
@@ -24,6 +32,47 @@ public class LoginDto {
         this.email = email;
         this.password = password;
         this.jwt = jwt;
+    }
+
+    public LoginDto(Long usuarioId, String nombre, String apellido, String email, String role, String jwt) {
+        this.usuarioId = usuarioId;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.email = email;
+        this.role = role;
+        this.jwt = jwt;
+    }
+
+    public Long getUsuarioId() {
+        return usuarioId;
+    }
+
+    public void setUsuarioId(Long usuarioId) {
+        this.usuarioId = usuarioId;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public String getEmail() {

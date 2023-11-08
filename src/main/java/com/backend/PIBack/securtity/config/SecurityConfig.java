@@ -39,6 +39,12 @@ public class SecurityConfig {
 
                                     .requestMatchers(HttpMethod.POST,"/api/usuarios/registrar").permitAll()
 
+                                    .requestMatchers(HttpMethod.GET, "/api/usuarios/{id}").hasAnyRole("USER", "ADMIN")
+
+                                    .requestMatchers(HttpMethod.PUT, "/api/usuarios/actualizar").hasAnyRole("USER", "ADMIN")
+
+                                    .requestMatchers(HttpMethod.DELETE, "/api/usuarios/{id}").hasAnyRole("USER", "ADMIN")
+
                                     .requestMatchers(HttpMethod.PUT,"/api/usuarios/actualizar").hasAnyRole("USER", "ADMIN")
 
                                     .requestMatchers(HttpMethod.GET,"api/producto/**").permitAll()
