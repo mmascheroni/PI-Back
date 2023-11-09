@@ -1,22 +1,33 @@
-INSERT INTO productos (categoria_id, nombre, descripcion) VALUES (1, "Guitarra Clasica 1/4 natural", "Guitarra clásica tamaño 1/4, recomendada especialmente para niños de (aprox.) entre 4 a 6 años.");
+-- Tabla de categorías
+INSERT INTO CATEGORIAS (titulo, descripcion, url_imagen) VALUES ("Guitarras", "Guitarras", "https://img-c9-g2-bucket.s3.amazonaws.com/Guitarra-Clasica.jpg");
+INSERT INTO CATEGORIAS (titulo, descripcion, url_imagen) VALUES ("Bajos", "Bajos", "https://img-c9-g2-bucket.s3.amazonaws.com/Guitarra-Clasica.jpg");
+INSERT INTO CATEGORIAS (titulo, descripcion, url_imagen) VALUES ("Baterías y Percusion", "Baterías y Percusion");
+INSERT INTO CATEGORIAS (titulo, descripcion, url_imagen) VALUES ("Piano y Teclado", "Piano y Teclado", "https://img-c9-g2-bucket.s3.amazonaws.com/Teclado-Casio4.webp");
+INSERT INTO CATEGORIAS (titulo, descripcion, url_imagen) VALUES ("Trompetas", "Baterías y Percusion", "https://img-c9-g2-bucket.s3.amazonaws.com/Bateria.jpg");
+INSERT INTO CATEGORIAS (titulo, descripcion, url_imagen) VALUES ("Accesorios", "Accesorios", "https://img-c9-g2-bucket.s3.amazonaws.com/tester.jpg");
+INSERT INTO CATEGORIAS (titulo, descripcion, url_imagen) VALUES ("Violines", "Violines", "https://img-c9-g2-bucket.s3.amazonaws.com/Violin-Cremona.jpg");
 
-INSERT INTO productos (nombre, descripcion) VALUES ("Micrófono Condensador Behringer Bv44 Usb", "El micrófono BV44 es el sueño de un transmisor en vivo hecho realidad! Este micrófono de condensador de calidad profesional tiene un diseño de ruido ultra bajo.");
 
-INSERT INTO productos (nombre, descripcion) VALUES ("Bateria Black Galaxy Sparkle C/hardware", "Batería Mapex Venus VE5044FTCVH 5 cuerpos.");
+INSERT INTO productos (nombre, descripcion, categoria_id)
+VALUES ("Guitarra Clasica 1/4 natural", "Guitarra clásica tamaño 1/4, recomendada especialmente para niños de (aprox.) entre 4 a 6 años.", 1);
 
-INSERT INTO productos (nombre, descripcion) VALUES ("Guitarra Electrica Translucent Blue", "Perfecta como primera guitarra o como la última guitarra que necesitarás, la SE Standard 24 recrea fielmente el diseño fundacional de la Custom 24.");
+INSERT INTO productos (nombre, descripcion, categoria_id) VALUES ("Micrófono Condensador Behringer Bv44 Usb", "El micrófono BV44 es el sueño de un transmisor en vivo hecho realidad! Este micrófono de condensador de calidad profesional tiene un diseño de ruido ultra bajo.", 6);
 
-INSERT INTO productos (nombre, descripcion) VALUES ("Guitarra Electrica Epiphone 1959", "Fabricada en asociación con Gibson™ Custom Shop, la edición limitada de 1959 Les Paul™ Standard es la impresionante recreación de Epiphone del raro clásico vintage.");
+INSERT INTO productos (nombre, descripcion, categoria_id) VALUES ("Bateria Black Galaxy Sparkle C/hardware", "Batería Mapex Venus VE5044FTCVH 5 cuerpos.", 3);
 
-INSERT INTO productos (nombre, descripcion) VALUES ("Amplificador Guitarra Memphis Ak15 15w Acústica", "Amplificador Guitarra Memphis Ak15 15W para guitarra electroacústica.");
+INSERT INTO productos (nombre, descripcion, categoria_id) VALUES ("Guitarra Electrica Translucent Blue", "Perfecta como primera guitarra o como la última guitarra que necesitarás, la SE Standard 24 recrea fielmente el diseño fundacional de la Custom 24.", 1);
 
-INSERT INTO productos (nombre, descripcion) VALUES ("Tester Behringer Ct200", "Asegúrese de que todos los cables de su arsenal funcionen correctamente con el invaluable comprobador de cables CT200.");
+INSERT INTO productos (nombre, descripcion, categoria_id) VALUES ("Guitarra Electrica Epiphone 1959", "Fabricada en asociación con Gibson™ Custom Shop, la edición limitada de 1959 Les Paul™ Standard es la impresionante recreación de Epiphone del raro clásico vintage.", 1);
 
-INSERT INTO productos (nombre, descripcion) VALUES ("Piano Digital Yamaha Csp170b C/banqueta", "Clavinova es una innovadora gama de pianos digitales en continua evolución, siempre buscando proporcionar el tacto y el sonido de un piano de cola, que es la máxima expresión de la excelencia en piano.");
+INSERT INTO productos (nombre, descripcion, categoria_id) VALUES ("Amplificador Guitarra Memphis Ak15 15w Acústica", "Amplificador Guitarra Memphis Ak15 15W para guitarra electroacústica.", 6);
 
-INSERT INTO productos (nombre, descripcion) VALUES ("Piano Digital Casio Cdps100 Bk", "La nueva serie CDP-S de teclados Casio inspira con características destacadas: nueva acción de martillo, nueva generación de sonido.");
+INSERT INTO productos (nombre, descripcion, categoria_id) VALUES ("Tester Behringer Ct200", "Asegúrese de que todos los cables de su arsenal funcionen correctamente con el invaluable comprobador de cables CT200.", 6);
 
-INSERT INTO productos (nombre, descripcion) VALUES ("Violin Cremona Sv130 4/4", "Saga siempre ha sido pionera en lo que respecta a la fabricación de violines de calidad para satisfacer las demandas del creciente mercado estudiantil.");
+INSERT INTO productos (nombre, descripcion, categoria_id) VALUES ("Piano Digital Yamaha Csp170b C/banqueta", "Clavinova es una innovadora gama de pianos digitales en continua evolución, siempre buscando proporcionar el tacto y el sonido de un piano de cola, que es la máxima expresión de la excelencia en piano.", 4);
+
+INSERT INTO productos (nombre, descripcion, categoria_id) VALUES ("Piano Digital Casio Cdps100 Bk", "La nueva serie CDP-S de teclados Casio inspira con características destacadas: nueva acción de martillo, nueva generación de sonido.", 4);
+
+INSERT INTO productos (nombre, descripcion, categoria_id) VALUES ("Violin Cremona Sv130 4/4", "Saga siempre ha sido pionera en lo que respecta a la fabricación de violines de calidad para satisfacer las demandas del creciente mercado estudiantil.", 7);
 
 --Imagen Producto 1
 INSERT INTO imagenes (url, producto_id) VALUES ("https://img-c9-g2-bucket.s3.amazonaws.com/Guitarra-Clasica.jpg", 1);
@@ -72,14 +83,6 @@ INSERT INTO imagenes (url, producto_id) VALUES ("https://img-c9-g2-bucket.s3.ama
 INSERT INTO imagenes (url, producto_id) VALUES ("https://img-c9-g2-bucket.s3.amazonaws.com/Violin1.webp", 10);
 INSERT INTO imagenes (url, producto_id) VALUES ("https://img-c9-g2-bucket.s3.amazonaws.com/Violin2.webp", 10);
 
--- Tabla de categorías
-INSERT INTO CATEGORIAS (nombre_categoria) VALUES
-    ('Guitarras'),
-    ('Bajos'),
-    ('Baterías y Percusion'),
-    ('Piano y Teclado'),
-    ('Trompetas'),
-    ('Accesorios');
 
 
 
