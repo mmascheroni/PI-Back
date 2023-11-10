@@ -7,6 +7,12 @@ INSERT INTO CATEGORIAS (titulo, descripcion, url_imagen) VALUES ("Trompetas", "B
 INSERT INTO CATEGORIAS (titulo, descripcion, url_imagen) VALUES ("Accesorios", "Accesorios", "https://img-c9-g2-bucket.s3.amazonaws.com/tester.jpg");
 INSERT INTO CATEGORIAS (titulo, descripcion, url_imagen) VALUES ("Violines", "Violines", "https://img-c9-g2-bucket.s3.amazonaws.com/Violin-Cremona.jpg");
 
+-- Tabla de características
+INSERT INTO CARACTERISTICAS (nombre, url_icono) VALUES ("Nuevo", "https://img-c9-g2-bucket.s3.amazonaws.com/caracteristicas-nuevo.jpeg");
+INSERT INTO CARACTERISTICAS (nombre, url_icono) VALUES ("Oferta", "https://img-c9-g2-bucket.s3.amazonaws.com/caracteristica-oferta.jpeg");
+INSERT INTO CARACTERISTICAS (nombre, url_icono) VALUES ("Recomendado para principiantes", "https://img-c9-g2-bucket.s3.amazonaws.com/caracteristica-principiantes.jpeg");
+INSERT INTO CARACTERISTICAS (nombre, url_icono) VALUES ("Recibe hoy", "https://img-c9-g2-bucket.s3.amazonaws.com/caracteristicas-recibe-hoy.jpeg");
+INSERT INTO CARACTERISTICAS (nombre, url_icono) VALUES ("Usado", "https://img-c9-g2-bucket.s3.amazonaws.com/caracteristicas-usuado.jpeg"
 
 INSERT INTO productos (nombre, descripcion, categoria_id)
 VALUES ("Guitarra Clasica 1/4 natural", "Guitarra clásica tamaño 1/4, recomendada especialmente para niños de (aprox.) entre 4 a 6 años.", 1);
