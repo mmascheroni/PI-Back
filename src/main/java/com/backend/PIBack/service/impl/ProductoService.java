@@ -36,16 +36,6 @@ public class ProductoService implements IProductoService {
         this.objectMapper = objectMapper;
     }
 
-    @Override
-    public ProductoDto registrarProducto(Producto producto) {
-        ProductoDto productoDto = objectMapper.convertValue(productoRepository.save(producto), ProductoDto.class);
-        LOGGER.info("Se guardó el producto: {}", productoDto);
-
-        ProductoDto productoDto1 = new ProductoDto(productoDto.getId(), productoDto.getNombre(), productoDto.getDescripcion(), productoDto.getCategoria(), productoDto.getCaracteristicas());
-        return productoDto1;
-    }
-
-
     public static List<String> obtenerUrls(List<Imagen> imagenes) {
         List<String> urls = imagenes
                 .stream()
@@ -54,6 +44,25 @@ public class ProductoService implements IProductoService {
 
         return urls;
     }
+
+
+    @Override
+    public ProductoDto registrarProducto(Producto producto) {
+        ProductoDto productoDto = null;
+
+        if (producto.getImagenes() != null) {
+            productoRepository.save(producto);
+            productoDto = ProductoDto.fromProducto(producto);
+        } else {
+            productoDto = objectMapper.convertValue(productoRepository.save(producto), ProductoDto.class);
+        }
+
+        LOGGER.info("Se guardó el producto: {}", productoDto);
+
+
+        return productoDto;
+    }
+
 
 
     @Override
@@ -132,13 +141,31 @@ public class ProductoService implements IProductoService {
     public ProductoDto actualizarProducto(Producto producto) {
         Producto productoAActualizar = productoRepository.findById(producto.getId()).orElse(null);
         ProductoDto productoActualizadoDto = null;
+
         if (productoAActualizar != null) {
-            // Actualiza las propiedades del producto existente con los datos del producto recibido.
-            productoAActualizar.setNombre(producto.getNombre());
-            productoAActualizar.setDescripcion(producto.getDescripcion());
-            productoAActualizar.setCategoria(producto.getCategoria()); // Asegúrate de manejar la categoría adecuadamente
+            if (producto.getNombre() != null) {
+                productoAActualizar.setNombre(producto.getNombre());
+            }
+
+            if (producto.getDescripcion() != null) {
+                productoAActualizar.setDescripcion(producto.getDescripcion());
+            }
+
+            if (producto.getImagenes() != null) {
+                productoAActualizar.setImagenes(producto.getImagenes());
+            }
+
+
+            if (producto.getCategoria() != null) {
+                productoAActualizar.setCategoria(producto.getCategoria());
+            }
+
+            if (producto.getCaracteristicas() != null) {
+                productoAActualizar.setCaracteristicas(producto.getCaracteristicas());
+            }
 
             productoActualizadoDto = objectMapper.convertValue(productoRepository.save(productoAActualizar), ProductoDto.class);
+
             LOGGER.info("El producto con ID {} ha sido actualizado: {}", producto.getId(), productoActualizadoDto);
         } else {
             LOGGER.warn("No es posible actualizar el producto porque no está registrado en la base de datos");

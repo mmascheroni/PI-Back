@@ -21,6 +21,8 @@ public class UsuarioService implements IUsuarioService {
 
     private final ObjectMapper objectMapper;
 
+    @Autowired
+    BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
     public UsuarioService(UsuarioRepository usuarioRepository, ObjectMapper objectMapper) {
@@ -30,8 +32,6 @@ public class UsuarioService implements IUsuarioService {
 
     @Override
     public UsuarioDto registrarUsuario(Usuario usuario) {
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-
         String passwordUsuario = bCryptPasswordEncoder.encode(usuario.getPassword());
 
         usuario.setPassword(passwordUsuario);
@@ -68,20 +68,44 @@ public class UsuarioService implements IUsuarioService {
         return usuarioDtos;
     }
 
-
     @Override
     public UsuarioDto actualizarUsuario(Usuario usuario) {
         Usuario usuarioAActualizar = usuarioRepository.findById(usuario.getId()).orElse(null);
-        UsuarioDto usuarioActualizadoDto = null;
-        if (usuarioAActualizar != null) {
-            usuarioAActualizar = usuario;
-            usuarioActualizadoDto = registrarUsuario(usuarioAActualizar);
-            LOGGER.warn("El usuario con ID {} ha sido actualizado: {}", usuario.getId(), usuarioActualizadoDto);
+        UsuarioDto usuarioDto = null;
+
+        if ( usuarioAActualizar != null ) {
+            if ( usuario.getNombre() != null ) {
+                usuarioAActualizar.setNombre(usuario.getNombre());
+            }
+
+            if ( usuario.getApellido() != null ) {
+                usuarioAActualizar.setApellido(usuario.getApellido());
+            }
+
+            if ( usuario.getEmail() != null ) {
+                usuarioAActualizar.setEmail(usuario.getEmail());
+            }
+
+            if ( usuario.getPassword() != null ) {
+                String passwordUsuario = bCryptPasswordEncoder.encode(usuario.getPassword());
+
+                usuarioAActualizar.setPassword(passwordUsuario);
+            }
+
+            if ( usuario.getRole() != null ) {
+                usuarioAActualizar.setRole(usuario.getRole());
+            }
+
+            usuarioRepository.save(usuarioAActualizar);
+            usuarioDto = objectMapper.convertValue(usuarioAActualizar, UsuarioDto.class);
+            LOGGER.info("Usuario actualizado con exito: {}", usuarioDto);
         } else {
-            LOGGER.warn("No es posible actualizar el usuario porque no está registrado en la base de datos");
+            LOGGER.error("No fue posible actualizar los datos, ya que el usuario no se encuentra registrado");
         }
-        return usuarioActualizadoDto;
+
+        return usuarioDto;
     }
+
 
     @Override
     public void eliminarUsuario(Long id) {
@@ -92,4 +116,5 @@ public class UsuarioService implements IUsuarioService {
             LOGGER.error("No se ha encontrado el usuario con id " + id);
         }
     }
+
 }
