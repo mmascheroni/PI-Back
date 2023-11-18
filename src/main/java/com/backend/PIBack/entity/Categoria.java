@@ -19,7 +19,7 @@ public class Categoria {
 
     private String urlImagen;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoria", orphanRemoval = true)
+    @OneToMany(mappedBy = "categoria")
     @JsonIgnore
     private List<Producto> productos;
 
