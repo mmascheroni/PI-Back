@@ -77,5 +77,15 @@ public class CategoriaDto {
         this.urlImagen = urlImagen;
     }
 
+    @Override
+    public String toString() {
+        return "Categoria {" +
+                "id=" + id +
+                ", nombre='" + titulo + '\'' +
+                ", descripcion='" + descripcion + '\'' +
+                ", imagenes='" + urlImagen + '\'' +
+                '}';
+    }
+
 
 }
