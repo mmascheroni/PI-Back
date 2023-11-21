@@ -42,7 +42,7 @@ public class CaracteristicaController {
         return ResponseEntity.ok(caracteristicaEncontrada);
     }
 
-    @GetMapping("/{nombre}")
+    @GetMapping("/nombre/{nombre}")
     public ResponseEntity<CaracteristicaDto> buscarCaracteristicaPorNombre(@PathVariable String nombre) {
         CaracteristicaDto caracteristicaEncontrada = caracteristicaService.buscarCaracteristicaPorNombre(nombre);
         return ResponseEntity.ok(caracteristicaEncontrada);
