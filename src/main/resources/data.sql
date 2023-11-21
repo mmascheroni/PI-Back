@@ -1,7 +1,7 @@
 -- Tabla de categorías
 INSERT INTO CATEGORIAS (titulo, descripcion, url_imagen) VALUES ("Guitarras", "Guitarras", "https://img-c9-g2-bucket.s3.amazonaws.com/Guitarra-Clasica.jpg");
 INSERT INTO CATEGORIAS (titulo, descripcion, url_imagen) VALUES ("Bajos", "Bajos", "https://img-c9-g2-bucket.s3.amazonaws.com/Guitarra-Clasica.jpg");
-INSERT INTO CATEGORIAS (titulo, descripcion, url_imagen) VALUES ("Baterías y Percusion", "Baterías y Percusion");
+INSERT INTO CATEGORIAS (titulo, descripcion, url_imagen) VALUES ("Baterías y Percusion", "Baterías y Percusion", "https://img-c9-g2-bucket.s3.amazonaws.com/Bateria2.webp");
 INSERT INTO CATEGORIAS (titulo, descripcion, url_imagen) VALUES ("Piano y Teclado", "Piano y Teclado", "https://img-c9-g2-bucket.s3.amazonaws.com/Teclado-Casio4.webp");
 INSERT INTO CATEGORIAS (titulo, descripcion, url_imagen) VALUES ("Trompetas", "Baterías y Percusion", "https://img-c9-g2-bucket.s3.amazonaws.com/Bateria.jpg");
 INSERT INTO CATEGORIAS (titulo, descripcion, url_imagen) VALUES ("Accesorios", "Accesorios", "https://img-c9-g2-bucket.s3.amazonaws.com/tester.jpg");
