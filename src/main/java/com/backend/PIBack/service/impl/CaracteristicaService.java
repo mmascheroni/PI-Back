@@ -82,24 +82,31 @@ public class CaracteristicaService implements ICaracteristicaService {
     @Override
     public CaracteristicaDto actualizarCaracteristica(Caracteristica caracteristica) {
         Caracteristica caracteristicaAActualizar = caracteristicaRepository.findById(caracteristica.getId()).orElse(null);
+        CaracteristicaDto caracteristicaActualizadaDto = null;
 
         if (caracteristicaAActualizar != null) {
-            // Actualiza los campos de la categoría existente
-            caracteristicaAActualizar.setNombre(caracteristica.getNombre());
-            // Puedes actualizar otros campos aquí
-            caracteristicaAActualizar.setUrlIcono(caracteristica.getUrlIcono());
-            caracteristicaAActualizar.setProductos(caracteristica.getProductos());
 
-            // Guarda la categoría actualizada
-            caracteristicaRepository.save(caracteristicaAActualizar);
+            if ( caracteristica.getNombre() != null ) {
+                caracteristicaAActualizar.setNombre(caracteristica.getNombre());
+            }
 
-            CaracteristicaDto caracteristicaActualizadaDto = objectMapper.convertValue(caracteristicaAActualizar, CaracteristicaDto.class);
+            if ( caracteristica.getUrlIcono() != null ) {
+                caracteristicaAActualizar.setUrlIcono(caracteristica.getUrlIcono());
+            }
+
+            if ( caracteristica.getProductos() != null ) {
+                caracteristicaAActualizar.setProductos(caracteristica.getProductos());
+            }
+
+            caracteristicaActualizadaDto = objectMapper.convertValue(caracteristicaRepository.save(caracteristicaAActualizar), CaracteristicaDto.class);
 
             LOGGER.warn("La característica con ID {} ha sido actualizada: {}", caracteristica.getId(), caracteristicaActualizadaDto);
+
             return caracteristicaActualizadaDto;
+
         } else {
             LOGGER.warn("No es posible actualizar la característica porque no está registrada en la base de datos");
-            return null; // o puedes lanzar una excepción si lo prefieres
+            return null;
         }
     }
 
