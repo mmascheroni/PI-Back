@@ -84,13 +84,30 @@ public class CategoriaService implements ICategoriaService {
     public CategoriaDto actualizarCategoria(Categoria categoria) {
         Categoria categoriaAActualizar = categoriaRepository.findById(categoria.getId()).orElse(null);
         CategoriaDto categoriaActualizadaDto = null;
+
         if (categoriaAActualizar != null) {
-            categoriaAActualizar = categoria;
-            categoriaActualizadaDto = registrarCategoria(categoriaAActualizar);
+
+            if ( categoria.getTitulo() != null ) {
+                categoriaAActualizar.setTitulo(categoria.getTitulo());
+            }
+
+            if ( categoria.getDescripcion() != null ) {
+                categoriaAActualizar.setDescripcion(categoria.getDescripcion());
+            }
+
+            if ( categoria.getUrlImagen() != null ) {
+                categoriaAActualizar.setUrlImagen(categoria.getUrlImagen());
+            }
+
+            categoriaActualizadaDto = objectMapper.convertValue(registrarCategoria(categoriaAActualizar), CategoriaDto.class);
             LOGGER.warn("La categoría con ID {} ha sido actualizada: {}", categoria.getId(), categoriaActualizadaDto);
+
         } else {
+
             LOGGER.warn("No es posible actualizar la categoría porque no está registrada en la base de datos");
+
         }
+
         return categoriaActualizadaDto;
     }
 
