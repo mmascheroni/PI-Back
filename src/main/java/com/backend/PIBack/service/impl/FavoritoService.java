@@ -45,11 +45,13 @@ public class FavoritoService implements IFavoritoService {
     @Override
     public FavoritoDto registrarFavorito(Favorito favorito) {
         FavoritoDto favoritoDto;
-        Usuario usuario = usuarioRepository.findById(favorito.getUsuario().getId()).orElse(null);
+        Usuario usuario = usuarioRepository.findByEmail(favorito.getUsuario().getEmail()).orElse(null);
         Producto producto = productoRepository.findById(favorito.getProducto().getId()).orElse(null);
+
 
         UsuarioDto usuarioDto = objectMapper.convertValue(usuario, UsuarioDto.class);
         ProductoDto productoDto = objectMapper.convertValue(producto, ProductoDto.class);
+
 
         if ( usuario == null ) {
             LOGGER.info("No existe el usuario con id: {}", favorito.getUsuario().getId());
@@ -60,6 +62,8 @@ public class FavoritoService implements IFavoritoService {
             LOGGER.info("No existe el producto con id: {}", favorito.getProducto().getId());
             return null;
         }
+
+        favorito.setUsuario(usuario);
 
         Favorito favoritoG = favoritoRepository.save(favorito);
 
@@ -92,8 +96,28 @@ public class FavoritoService implements IFavoritoService {
     }
 
     @Override
-    public List<FavoritoDto> obtenerProductosFavoritosDeUsuario(Long usuarioId) {
+    public List<FavoritoDto> obtenerProductosFavoritosDeUsuarioPorId(Long usuarioId) {
         List<Favorito> favoritos = favoritoRepository.findByUsuarioId(usuarioId);
+
+        return favoritos.stream()
+                .map(favorito -> {
+                    UsuarioDto usuarioDto = objectMapper.convertValue(favorito.getUsuario(), UsuarioDto.class);
+                    ProductoDto productoDto = objectMapper.convertValue(favorito.getProducto(), ProductoDto.class);
+
+                    List<String> urls = obtenerUrls(favorito.getProducto().getImagenes());
+
+                    productoDto.setImagen(urls);
+
+                    return new FavoritoDto(favorito.getId(), usuarioDto, productoDto);
+                })
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<FavoritoDto> obtenerProductosFavoritosDeUsuarioPorEmail(String usuarioEmail) {
+        List<Favorito> favoritos = favoritoRepository.findByUsuarioEmail(usuarioEmail);
+
+        LOGGER.info(favoritoRepository.findByUsuarioEmail(usuarioEmail).toString());
 
         return favoritos.stream()
                 .map(favorito -> {
@@ -115,7 +139,7 @@ public class FavoritoService implements IFavoritoService {
 
         List<FavoritoDto> favoritoDtos = favoritos.stream().map(favorito -> {
 
-            Usuario usuario = usuarioRepository.findById(favorito.getUsuario().getId()).orElse(null);
+            Usuario usuario = usuarioRepository.findByEmail(favorito.getUsuario().getEmail()).orElse(null);
             Producto producto = productoRepository.findById(favorito.getProducto().getId()).orElse(null);
 
             List<String> urls = obtenerUrls(producto.getImagenes());
@@ -151,7 +175,7 @@ public class FavoritoService implements IFavoritoService {
 
         if (favoritoAActualizar != null) {
             if (favorito.getUsuario() != null) {
-                usuario = usuarioRepository.findById(favorito.getUsuario().getId()).orElse(null);
+                usuario = usuarioRepository.findByEmail(favorito.getUsuario().getEmail()).orElse(null);
                 favoritoAActualizar.setUsuario(usuario);
 
                 usuarioDto = objectMapper.convertValue(usuario, UsuarioDto.class);

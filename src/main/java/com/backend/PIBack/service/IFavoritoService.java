@@ -12,7 +12,9 @@ public interface IFavoritoService {
 
     FavoritoDto buscarFavoritoPorId(Long id);
 
-    List<FavoritoDto> obtenerProductosFavoritosDeUsuario(Long usuarioId);
+    List<FavoritoDto> obtenerProductosFavoritosDeUsuarioPorId(Long usuarioId);
+
+    List<FavoritoDto> obtenerProductosFavoritosDeUsuarioPorEmail(String usuarioEmail);
 
     List<FavoritoDto> listarFavoritos();
 

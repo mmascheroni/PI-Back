@@ -41,9 +41,14 @@ public class FavoritoController {
     }
 
     //GET
-    @GetMapping("/usuario/{id}")
-    public ResponseEntity<List<FavoritoDto>> listarFavoritosPorUsuario(@PathVariable Long id) {
-        return ResponseEntity.ok(favoritoService.obtenerProductosFavoritosDeUsuario(id));
+    @GetMapping("/usuario/id/{id}")
+    public ResponseEntity<List<FavoritoDto>> listarFavoritosPorUsuarioPorId(@PathVariable Long id) {
+        return ResponseEntity.ok(favoritoService.obtenerProductosFavoritosDeUsuarioPorId(id));
+    }
+
+    @GetMapping("/usuario")
+    public ResponseEntity<List<FavoritoDto>> listarFavoritosPorUsuarioPorEmail(@RequestParam(name = "email") String email) {
+        return ResponseEntity.ok(favoritoService.obtenerProductosFavoritosDeUsuarioPorEmail(email));
     }
 
     @PutMapping("/actualizar")

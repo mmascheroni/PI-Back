@@ -14,4 +14,7 @@ public interface FavoritoRepository extends JpaRepository<Favorito, Long> {
     @Query("SELECT f FROM Favorito f WHERE f.usuario.id = :usuarioId")
     List<Favorito> findByUsuarioId(@Param("usuarioId") Long usuarioId);
 
+    @Query("SELECT f FROM Favorito f WHERE f.usuario.email = :usuarioEmail")
+    List<Favorito> findByUsuarioEmail(@Param("usuarioEmail") String usuarioEmail);
+
 }
