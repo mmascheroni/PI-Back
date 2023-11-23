@@ -36,6 +36,10 @@ public class Producto {
     )
     private List<Caracteristica> caracteristicas;
 
+    @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<Favorito> favoritos;
+
     public Producto() {
     }
 
@@ -46,6 +50,15 @@ public class Producto {
         this.imagenes = imagenes;
         this.categoria = categoria;
         this.caracteristicas = caracteristicas;
+    }
+
+    public Producto(String nombre, String descripcion, List<Imagen> imagenes, Categoria categoria, List<Caracteristica> caracteristicas, List<Favorito> favoritos) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.imagenes = imagenes;
+        this.categoria = categoria;
+        this.caracteristicas = caracteristicas;
+        this.favoritos = favoritos;
     }
 
     public Producto(String nombre, String descripcion, Categoria categoria, List<Caracteristica> caracteristicas) {
@@ -98,5 +111,13 @@ public class Producto {
 
     public void setCaracteristicas(List<Caracteristica> caracteristicas) {
         this.caracteristicas = caracteristicas;
+    }
+
+    public List<Favorito> getFavoritos() {
+        return favoritos;
+    }
+
+    public void setFavoritos(List<Favorito> favoritos) {
+        this.favoritos = favoritos;
     }
 }

@@ -1,6 +1,9 @@
 package com.backend.PIBack.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "USUARIOS")
@@ -8,6 +11,7 @@ public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "usuario_id")
     private Long id;
 
     private String nombre;
@@ -21,6 +25,10 @@ public class Usuario {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<Favorito> favoritos;
+
     public Usuario() {
     }
 
@@ -30,6 +38,15 @@ public class Usuario {
         this.email = email;
         this.password = password;
         this.role = role;
+    }
+
+    public Usuario(String nombre, String apellido, String email, String password, Role role, List<Favorito> favoritos) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        this.favoritos = favoritos;
     }
 
     public Long getId() {
@@ -74,5 +91,13 @@ public class Usuario {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public List<Favorito> getFavoritos() {
+        return favoritos;
+    }
+
+    public void setFavoritos(List<Favorito> favoritos) {
+        this.favoritos = favoritos;
     }
 }

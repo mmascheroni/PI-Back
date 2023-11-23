@@ -46,6 +46,8 @@ public class SecurityConfig {
 
                                     .requestMatchers("/api/caracteristicas/**").permitAll()
 
+                                    .requestMatchers("/api/favoritos/**").hasAnyRole("USER", "ADMIN")
+
                                     .requestMatchers(HttpMethod.PUT, "/api/usuarios/actualizar").hasAnyRole("USER", "ADMIN")
 
                                     .requestMatchers(HttpMethod.DELETE, "/api/usuarios/{id}").hasAnyRole("USER", "ADMIN")
