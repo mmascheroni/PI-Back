@@ -40,8 +40,6 @@ public class Producto {
     @JsonIgnore
     private List<Favorito> favoritos;
 
-    private boolean disponible = true;
-
     public Producto() {
     }
 
@@ -70,24 +68,6 @@ public class Producto {
         this.caracteristicas = caracteristicas;
     }
 
-    public Producto(String nombre, String descripcion, List<Imagen> imagenes, Categoria categoria, List<Caracteristica> caracteristicas, boolean disponible) {
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-        this.imagenes = imagenes;
-        this.categoria = categoria;
-        this.caracteristicas = caracteristicas;
-        this.disponible = disponible;
-    }
-
-    public Producto(String nombre, String descripcion, List<Imagen> imagenes, Categoria categoria, List<Caracteristica> caracteristicas, List<Favorito> favoritos, boolean disponible) {
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-        this.imagenes = imagenes;
-        this.categoria = categoria;
-        this.caracteristicas = caracteristicas;
-        this.favoritos = favoritos;
-        this.disponible = disponible;
-    }
 
     public Long getId() {
         return id;
@@ -142,11 +122,4 @@ public class Producto {
         this.favoritos = favoritos;
     }
 
-    public boolean isDisponible() {
-        return disponible;
-    }
-
-    public void setDisponible(boolean disponible) {
-        this.disponible = disponible;
-    }
 }
