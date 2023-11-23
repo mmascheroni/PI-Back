@@ -1,8 +1,6 @@
 package com.backend.PIBack.controller;
 
-import com.backend.PIBack.dto.CategoriaDto;
 import com.backend.PIBack.dto.ImagenDto;
-import com.backend.PIBack.entity.Categoria;
 import com.backend.PIBack.entity.Imagen;
 import com.backend.PIBack.service.impl.ImagenService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +16,7 @@ import java.util.List;
 @RequestMapping("api/imagen")
 public class ImagenController {
 
-    private ImagenService imagenService;
+    private final ImagenService imagenService;
 
     @Autowired
     public ImagenController(ImagenService imagenService) {

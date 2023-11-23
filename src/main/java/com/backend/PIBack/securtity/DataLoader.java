@@ -27,10 +27,10 @@ public class DataLoader implements ApplicationRunner {
         String passwordUser = bCryptPasswordEncoder.encode("user");
 
         // Usuario ADMIN
-        usuarioRepository.save(new Usuario("Administrador", "admin", "sinfoniaadm23@gmail.com",  passwordAdmin, Role.ADMIN));
+        usuarioRepository.save(new Usuario("Administrador", "admin", "sinfoniaadm23@gmail.com", passwordAdmin, Role.ADMIN));
 
         // Usuario USER
-        usuarioRepository.save(new Usuario("Usuario", "user", "usersinfonia@gmail.com", passwordUser,  Role.USER));
+        usuarioRepository.save(new Usuario("Usuario", "user", "usersinfonia@gmail.com", passwordUser, Role.USER));
 
     }
 

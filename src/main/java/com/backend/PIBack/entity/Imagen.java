@@ -1,8 +1,5 @@
 package com.backend.PIBack.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -19,7 +16,8 @@ public class Imagen {
     @JoinColumn(name = "producto_id")
     private Producto producto;
 
-    public Imagen() {}
+    public Imagen() {
+    }
 
     public Imagen(String url, Producto producto) {
         this.url = url;

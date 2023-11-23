@@ -11,9 +11,9 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class JwtUtil {
 
-    private static String SECRET_KEY = "sinfoni4";
+    private static final String SECRET_KEY = "sinfoni4";
 
-    private static Algorithm ALGORITHM = Algorithm.HMAC256(SECRET_KEY);
+    private static final Algorithm ALGORITHM = Algorithm.HMAC256(SECRET_KEY);
 
     public String createToken(String email) {
         return JWT.create()

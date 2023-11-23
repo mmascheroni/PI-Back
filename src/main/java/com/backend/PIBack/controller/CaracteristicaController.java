@@ -1,9 +1,7 @@
 package com.backend.PIBack.controller;
 
 import com.backend.PIBack.dto.CaracteristicaDto;
-import com.backend.PIBack.dto.CategoriaDto;
 import com.backend.PIBack.entity.Caracteristica;
-import com.backend.PIBack.entity.Categoria;
 import com.backend.PIBack.service.impl.CaracteristicaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,7 +15,7 @@ import java.util.List;
 @RequestMapping("/api/caracteristicas")
 public class CaracteristicaController {
 
-    private CaracteristicaService caracteristicaService;
+    private final CaracteristicaService caracteristicaService;
 
     @Autowired
     public CaracteristicaController(CaracteristicaService caracteristicaService) {

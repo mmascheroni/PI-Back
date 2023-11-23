@@ -38,7 +38,7 @@ public class SecurityConfig {
                             customizeRequests
                                     .requestMatchers("/api/auth/**").permitAll()
 
-                                    .requestMatchers(HttpMethod.POST,"/api/usuarios/registrar").permitAll()
+                                    .requestMatchers(HttpMethod.POST, "/api/usuarios/registrar").permitAll()
 
                                     .requestMatchers(HttpMethod.GET, "/api/usuarios/{id}").hasAnyRole("USER", "ADMIN")
 
@@ -50,9 +50,9 @@ public class SecurityConfig {
 
                                     .requestMatchers(HttpMethod.DELETE, "/api/usuarios/{id}").hasAnyRole("USER", "ADMIN")
 
-                                    .requestMatchers(HttpMethod.PUT,"/api/usuarios/actualizar").hasAnyRole("USER", "ADMIN")
+                                    .requestMatchers(HttpMethod.PUT, "/api/usuarios/actualizar").hasAnyRole("USER", "ADMIN")
 
-                                    .requestMatchers(HttpMethod.GET,"api/producto/**").permitAll()
+                                    .requestMatchers(HttpMethod.GET, "api/producto/**").permitAll()
 
                                     .requestMatchers("/api/imagen/**").hasRole("ADMIN")
 
@@ -60,11 +60,11 @@ public class SecurityConfig {
 
                                     .requestMatchers("/api/usuarios/**").hasRole("ADMIN")
 
-                                    .requestMatchers(HttpMethod.POST,"/api/**").hasRole("ADMIN")
+                                    .requestMatchers(HttpMethod.POST, "/api/**").hasRole("ADMIN")
 
-                                    .requestMatchers(HttpMethod.PUT,"/api/**").hasRole("ADMIN")
+                                    .requestMatchers(HttpMethod.PUT, "/api/**").hasRole("ADMIN")
 
-                                    .requestMatchers(HttpMethod.DELETE,"/api/**").hasRole("ADMIN")
+                                    .requestMatchers(HttpMethod.DELETE, "/api/**").hasRole("ADMIN")
 
                                     .anyRequest()
                                     .authenticated();
@@ -77,10 +77,9 @@ public class SecurityConfig {
 
 
     @Bean
-    public AuthenticationManager authenticationManager (AuthenticationConfiguration configuration) throws Exception {
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
         return configuration.getAuthenticationManager();
     }
-
 
 
     @Bean

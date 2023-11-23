@@ -1,11 +1,8 @@
-
 package com.backend.PIBack.dto;
 
-import com.backend.PIBack.entity.Imagen;
-import com.backend.PIBack.entity.Producto;
-import com.fasterxml.jackson.annotation.*;
-
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")

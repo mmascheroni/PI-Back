@@ -1,9 +1,7 @@
 package com.backend.PIBack.service.impl;
 
 import com.backend.PIBack.dto.CategoriaDto;
-import com.backend.PIBack.dto.UsuarioDto;
 import com.backend.PIBack.entity.Categoria;
-import com.backend.PIBack.entity.Usuario;
 import com.backend.PIBack.repository.CategoriaRepository;
 import com.backend.PIBack.service.ICategoriaService;
 import com.fasterxml.jackson.databind.ObjectMapper;

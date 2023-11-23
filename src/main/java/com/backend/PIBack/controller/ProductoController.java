@@ -1,10 +1,7 @@
 package com.backend.PIBack.controller;
 
 
-import com.backend.PIBack.dto.ImagenDto;
 import com.backend.PIBack.dto.ProductoDto;
-import com.backend.PIBack.entity.Categoria;
-import com.backend.PIBack.entity.Imagen;
 import com.backend.PIBack.entity.Producto;
 import com.backend.PIBack.service.impl.ProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +19,7 @@ import java.util.List;
 @RequestMapping("api/producto")
 public class ProductoController {
 
-    private ProductoService productoService;
+    private final ProductoService productoService;
 
     @Autowired
     public ProductoController(ProductoService productoService) {
