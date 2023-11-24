@@ -52,7 +52,9 @@ public class FavoritoService implements IFavoritoService {
 
 
         UsuarioDto usuarioDto = objectMapper.convertValue(usuario, UsuarioDto.class);
-        ProductoDto productoDto = objectMapper.convertValue(producto, ProductoDto.class);
+        ProductoDto productoDto = convertirAProductoDto(producto);
+
+
 
 
         if ( usuario == null ) {
@@ -84,7 +86,7 @@ public class FavoritoService implements IFavoritoService {
 
         Producto producto = productoRepository.findById(favoritoBuscado.getProducto().getId()).orElse(null);
 
-        ProductoDto productoDto = objectMapper.convertValue(producto, ProductoDto.class);
+        ProductoDto productoDto = convertirAProductoDto(producto);
 
         if ( favoritoBuscado != null ) {
             favoritoDto = objectMapper.convertValue(favoritoBuscado, FavoritoDto.class);
@@ -103,7 +105,7 @@ public class FavoritoService implements IFavoritoService {
         return favoritos.stream()
                 .map(favorito -> {
                     UsuarioDto usuarioDto = objectMapper.convertValue(favorito.getUsuario(), UsuarioDto.class);
-                    ProductoDto productoDto = objectMapper.convertValue(favorito.getProducto(), ProductoDto.class);
+                    ProductoDto productoDto = convertirAProductoDto(favorito.getProducto());
 
                     return new FavoritoDto(favorito.getId(), usuarioDto, productoDto);
                 })
@@ -119,7 +121,7 @@ public class FavoritoService implements IFavoritoService {
         return favoritos.stream()
                 .map(favorito -> {
                     UsuarioDto usuarioDto = objectMapper.convertValue(favorito.getUsuario(), UsuarioDto.class);
-                    ProductoDto productoDto = objectMapper.convertValue(favorito.getProducto(), ProductoDto.class);
+                    ProductoDto productoDto = convertirAProductoDto(favorito.getProducto());
 
                     return new FavoritoDto(favorito.getId(), usuarioDto, productoDto);
                 })
@@ -138,7 +140,7 @@ public class FavoritoService implements IFavoritoService {
 
 
             UsuarioDto usuarioDto = objectMapper.convertValue(usuario, UsuarioDto.class);
-            ProductoDto productoDto = objectMapper.convertValue(producto, ProductoDto.class);
+            ProductoDto productoDto = convertirAProductoDto(producto);
 
 
             return new FavoritoDto(favorito.getId(), usuarioDto, productoDto);
@@ -175,7 +177,7 @@ public class FavoritoService implements IFavoritoService {
                 producto = productoRepository.findById(favorito.getProducto().getId()).orElse(null);
                 favoritoAActualizar.setProducto(producto);
 
-                productoDto = objectMapper.convertValue(producto, ProductoDto.class);
+                productoDto = convertirAProductoDto(producto);
             }
 
 
@@ -209,5 +211,17 @@ public class FavoritoService implements IFavoritoService {
                 .collect(Collectors.toList());
 
         return urls;
+    }
+
+
+    private ProductoDto convertirAProductoDto(Producto producto) {
+        List<ProductoImagenDto> imagenesDto = producto.getImagenes()
+                .stream()
+                .map(imagen -> objectMapper.convertValue(imagen, ProductoImagenDto.class))
+                .collect(Collectors.toList());
+
+        return new ProductoDto(
+                producto.getId(), producto.getNombre(), producto.getDescripcion(), imagenesDto, producto.getCategoria(), producto.getCaracteristicas()
+        );
     }
 }
