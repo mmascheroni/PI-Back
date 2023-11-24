@@ -2,6 +2,7 @@ package com.backend.PIBack.service.impl;
 
 import com.backend.PIBack.dto.FavoritoDto;
 import com.backend.PIBack.dto.ProductoDto;
+import com.backend.PIBack.dto.ProductoImagenDto;
 import com.backend.PIBack.dto.UsuarioDto;
 import com.backend.PIBack.entity.Favorito;
 import com.backend.PIBack.entity.Imagen;
@@ -17,6 +18,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -85,9 +87,8 @@ public class FavoritoService implements IFavoritoService {
         ProductoDto productoDto = objectMapper.convertValue(producto, ProductoDto.class);
 
         if ( favoritoBuscado != null ) {
-            List<String> urls = obtenerUrls(producto.getImagenes());
             favoritoDto = objectMapper.convertValue(favoritoBuscado, FavoritoDto.class);
-            productoDto.setImagen(urls);
+            productoDto.setImagen(Collections.singletonList(objectMapper.convertValue(producto.getImagenes(), ProductoImagenDto.class)));
             LOGGER.info("Favorito encontrado: {}", favoritoDto);
         } else {
             LOGGER.error("El favorito buscado con id {}, no se encuentra registrado en la base de datos", id);
@@ -103,10 +104,6 @@ public class FavoritoService implements IFavoritoService {
                 .map(favorito -> {
                     UsuarioDto usuarioDto = objectMapper.convertValue(favorito.getUsuario(), UsuarioDto.class);
                     ProductoDto productoDto = objectMapper.convertValue(favorito.getProducto(), ProductoDto.class);
-
-                    List<String> urls = obtenerUrls(favorito.getProducto().getImagenes());
-
-                    productoDto.setImagen(urls);
 
                     return new FavoritoDto(favorito.getId(), usuarioDto, productoDto);
                 })
@@ -124,10 +121,6 @@ public class FavoritoService implements IFavoritoService {
                     UsuarioDto usuarioDto = objectMapper.convertValue(favorito.getUsuario(), UsuarioDto.class);
                     ProductoDto productoDto = objectMapper.convertValue(favorito.getProducto(), ProductoDto.class);
 
-                    List<String> urls = obtenerUrls(favorito.getProducto().getImagenes());
-
-                    productoDto.setImagen(urls);
-
                     return new FavoritoDto(favorito.getId(), usuarioDto, productoDto);
                 })
                 .collect(Collectors.toList());
@@ -142,14 +135,11 @@ public class FavoritoService implements IFavoritoService {
             Usuario usuario = usuarioRepository.findByEmail(favorito.getUsuario().getEmail()).orElse(null);
             Producto producto = productoRepository.findById(favorito.getProducto().getId()).orElse(null);
 
-            List<String> urls = obtenerUrls(producto.getImagenes());
-
 
 
             UsuarioDto usuarioDto = objectMapper.convertValue(usuario, UsuarioDto.class);
             ProductoDto productoDto = objectMapper.convertValue(producto, ProductoDto.class);
 
-            productoDto.setImagenes(urls);
 
             return new FavoritoDto(favorito.getId(), usuarioDto, productoDto);
         }).toList();
@@ -185,10 +175,7 @@ public class FavoritoService implements IFavoritoService {
                 producto = productoRepository.findById(favorito.getProducto().getId()).orElse(null);
                 favoritoAActualizar.setProducto(producto);
 
-                List<String> urls = obtenerUrls(producto.getImagenes());
-
                 productoDto = objectMapper.convertValue(producto, ProductoDto.class);
-                productoDto.setImagen(urls);
             }
 
 
@@ -196,7 +183,6 @@ public class FavoritoService implements IFavoritoService {
 
 
             favoritoActualizadoDto.setUsuario(usuarioDto);
-            LOGGER.info("USUARIO: " + usuarioDto);
             favoritoActualizadoDto.setProducto(productoDto);
 
             LOGGER.info("El favorito con ID {} ha sido actualizado: {}", favorito.getId(), favoritoActualizadoDto);

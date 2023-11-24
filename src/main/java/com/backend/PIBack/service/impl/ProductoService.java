@@ -1,5 +1,6 @@
 package com.backend.PIBack.service.impl;
 
+import com.backend.PIBack.dto.ProductoImagenDto;
 import com.backend.PIBack.dto.UsuarioDto;
 import com.backend.PIBack.entity.Categoria;
 import com.backend.PIBack.entity.Imagen;
@@ -18,6 +19,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import com.backend.PIBack.repository.ProductoRepository;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -52,7 +54,7 @@ public class ProductoService implements IProductoService {
 
         if (producto.getImagenes() != null) {
             productoRepository.save(producto);
-            productoDto = ProductoDto.fromProducto(producto);
+            productoDto = objectMapper.convertValue(producto, ProductoDto.class);
         } else {
             productoDto = objectMapper.convertValue(productoRepository.save(producto), ProductoDto.class);
         }
@@ -71,9 +73,7 @@ public class ProductoService implements IProductoService {
         ProductoDto productoDto = null;
 
         if ( productoBuscado != null ) {
-            List<String> urls = obtenerUrls(productoBuscado.getImagenes());
-            productoDto = objectMapper.convertValue(productoBuscado, ProductoDto.class);
-            productoDto.setImagen(urls);
+            productoDto = convertirAProductoDto(productoBuscado);
             LOGGER.info("Producto encontrado: {}", productoDto);
         } else {
             LOGGER.error("El producto buscado con id {}, no se encuentra registrado en la base de datos", id);
@@ -85,11 +85,11 @@ public class ProductoService implements IProductoService {
     @Override
     public List<ProductoDto> listarProductos() {
         List<Producto> productos = productoRepository.findAll();
+        ProductoDto productoDto;
 
-        List<ProductoDto> productosDtos = productos.stream().map(producto -> {
-            List<String> urls = obtenerUrls(producto.getImagenes());
-            return new ProductoDto(producto.getId(), producto.getNombre(), producto.getDescripcion(), urls, producto.getCategoria(), producto.getCaracteristicas());
-        }).toList();
+        List<ProductoDto> productosDtos = productos.stream()
+                .map(producto -> convertirAProductoDto(producto))
+                .toList();
 
         if ( productosDtos.size() > 0 ) {
             LOGGER.info("Listado de productos: {}", productosDtos);
@@ -105,10 +105,9 @@ public class ProductoService implements IProductoService {
     public List<ProductoDto> listarProductosPaging(Pageable pageable) {
         Page<Producto> productos = productoRepository.findAll(pageable);
 
-        List<ProductoDto> productosDtos = productos.stream().map(producto -> {
-            List<String> urls = obtenerUrls(producto.getImagenes());
-            return new ProductoDto(producto.getId(), producto.getNombre(), producto.getDescripcion(), urls, producto.getCategoria(), producto.getCaracteristicas());
-        }).toList();
+        List<ProductoDto> productosDtos = productos.stream()
+                .map(producto -> convertirAProductoDto(producto))
+                .toList();
 
         if ( productosDtos.size() > 0 ) {
             LOGGER.info("Listado de productos: {}", productosDtos);
@@ -123,10 +122,9 @@ public class ProductoService implements IProductoService {
     public List<ProductoDto> listarProductosAleatorios(int limite) {
         List<Producto> productos = productoRepository.listarProductosAleatorios(limite);
 
-        List<ProductoDto> productosDtos = productos.stream().map(producto -> {
-            List<String> urls = obtenerUrls(producto.getImagenes());
-            return new ProductoDto(producto.getId(), producto.getNombre(), producto.getDescripcion(), urls, producto.getCategoria(), producto.getCaracteristicas());
-        }).toList();
+        List<ProductoDto> productosDtos = productos.stream()
+                .map(producto -> convertirAProductoDto(producto))
+                .toList();
 
         if ( productosDtos.size() > 0 ) {
             LOGGER.info("Listado Aleatorio de productos: {}", productosDtos);
@@ -183,6 +181,19 @@ public class ProductoService implements IProductoService {
             LOGGER.error("No se ha encontrado el producto con id " + id);
         }
     }
+
+
+    private ProductoDto convertirAProductoDto(Producto producto) {
+        List<ProductoImagenDto> imagenesDto = producto.getImagenes()
+                .stream()
+                .map(imagen -> objectMapper.convertValue(imagen, ProductoImagenDto.class))
+                .collect(Collectors.toList());
+
+        return new ProductoDto(
+                producto.getId(), producto.getNombre(), producto.getDescripcion(), imagenesDto, producto.getCategoria(), producto.getCaracteristicas()
+        );
+    }
+
 
 
 }

@@ -8,6 +8,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.backend.PIBack.entity.Producto;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,11 +24,14 @@ public class ProductoDto {
 
     private String descripcion;
 
-    private List<String> imagenes;
+    private List<ProductoImagenDto> imagenes;
 
     private Categoria  categoria;
 
     private List<Caracteristica> caracteristicas;
+
+    @Autowired
+    private static ObjectMapper objectMapper;
 
     public ProductoDto() {
     }
@@ -39,7 +44,7 @@ public class ProductoDto {
         this.caracteristicas = caracteristicas;
     }
 
-    public ProductoDto(Long id, String nombre, String descripcion, List<String> imagenes, Categoria categoria, List<Caracteristica> caracteristicas) {
+    public ProductoDto(Long id, String nombre, String descripcion, List<ProductoImagenDto> imagenes, Categoria categoria, List<Caracteristica> caracteristicas) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -73,11 +78,11 @@ public class ProductoDto {
     }
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public List<String> getImagenes() {
+    public List<ProductoImagenDto> getImagenes() {
         return imagenes;
     }
 
-    public void setImagen(List<String> imagenes) {
+    public void setImagen(List<ProductoImagenDto> imagenes) {
         this.imagenes = imagenes;
     }
 
@@ -89,7 +94,7 @@ public class ProductoDto {
         this.categoria = categoria;
     }
 
-    public void setImagenes(List<String> imagenes) {
+    public void setImagenes(List<ProductoImagenDto> imagenes) {
         this.imagenes = imagenes;
     }
 
@@ -112,11 +117,16 @@ public class ProductoDto {
 
 
     public static ProductoDto fromProducto(Producto producto) {
-        List<String> urls = obtenerUrls(producto.getImagenes());
+        List<ProductoImagenDto> imagenesDto = producto.getImagenes()
+                .stream()
+                .map(imagen -> objectMapper.convertValue(imagen, ProductoImagenDto.class))
+                .collect(Collectors.toList());
+
         return new ProductoDto(
-                producto.getId(), producto.getNombre(), producto.getDescripcion(), urls, producto.getCategoria(), producto.getCaracteristicas()
+                producto.getId(), producto.getNombre(), producto.getDescripcion(), imagenesDto, producto.getCategoria(), producto.getCaracteristicas()
         );
     }
+
 
     @Override
     public String toString() {
