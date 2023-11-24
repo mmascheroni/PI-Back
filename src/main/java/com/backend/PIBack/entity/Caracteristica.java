@@ -1,5 +1,6 @@
 package com.backend.PIBack.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -17,6 +18,7 @@ public class Caracteristica {
     private String urlIcono;
 
     @ManyToMany(mappedBy = "caracteristicas")
+    @JsonIgnore
     private List<Producto> productos;
 
     public Caracteristica() {
