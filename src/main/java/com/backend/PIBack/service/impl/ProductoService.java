@@ -52,15 +52,16 @@ public class ProductoService implements IProductoService {
     public ProductoDto registrarProducto(Producto producto) {
         ProductoDto productoDto = null;
 
-        if (producto.getImagenes() != null) {
-            productoRepository.save(producto);
-            productoDto = objectMapper.convertValue(producto, ProductoDto.class);
-        } else {
-            productoDto = objectMapper.convertValue(productoRepository.save(producto), ProductoDto.class);
+        // Asociar características al producto
+        if (producto.getCaracteristicas() != null && !producto.getCaracteristicas().isEmpty()) {
+            Producto finalProducto = producto;
+            producto.getCaracteristicas().forEach(caracteristica -> caracteristica.getProductos().add(finalProducto));
         }
 
+        // Guardar el producto y sus características
+        producto = productoRepository.save(producto);
+        productoDto = objectMapper.convertValue(producto, ProductoDto.class);
         LOGGER.info("Se guardó el producto: {}", productoDto);
-
 
         return productoDto;
     }

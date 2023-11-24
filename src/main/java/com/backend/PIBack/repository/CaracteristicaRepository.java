@@ -8,5 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface CaracteristicaRepository extends JpaRepository<Caracteristica, Long> {
-    Optional<Caracteristica> findCaracteristicaByNombre(String nombre);
+    Optional<Caracteristica> findByNombreIgnoreCase(String nombre);
 }

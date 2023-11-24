@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CaracteristicaService implements ICaracteristicaService {
@@ -49,16 +50,16 @@ public class CaracteristicaService implements ICaracteristicaService {
 
     @Override
     public CaracteristicaDto buscarCaracteristicaPorNombre(String nombre) {
-        Caracteristica caracteristicaBuscada = caracteristicaRepository.findCaracteristicaByNombre(nombre).orElse(null);
-        CaracteristicaDto caracteristicaDto = null;
-
-        if (caracteristicaBuscada != null) {
-            caracteristicaDto = objectMapper.convertValue(caracteristicaBuscada, CaracteristicaDto.class);
+        Optional<Caracteristica> caracteristicaOptional = caracteristicaRepository.findByNombreIgnoreCase(nombre);
+        if (caracteristicaOptional.isPresent()) {
+            Caracteristica caracteristicaBuscada = caracteristicaOptional.get();
+            CaracteristicaDto caracteristicaDto = objectMapper.convertValue(caracteristicaBuscada, CaracteristicaDto.class);
             LOGGER.info("Característica encontrada: {}", caracteristicaDto);
+            return caracteristicaDto;
         } else {
-            LOGGER.error("La característica con el título {}, no se encuentra registrada en la base de datos", nombre);
+            LOGGER.error("La característica con el título '{}' no se encuentra registrada en la base de datos", nombre);
+            return null; // O bien, puedes lanzar una excepción o retornar un objeto vacío según tu lógica de manejo de errores.
         }
-        return caracteristicaDto;
     }
 
     @Override
