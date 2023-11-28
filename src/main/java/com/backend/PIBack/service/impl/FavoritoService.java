@@ -90,7 +90,6 @@ public class FavoritoService implements IFavoritoService {
 
         if ( favoritoBuscado != null ) {
             favoritoDto = objectMapper.convertValue(favoritoBuscado, FavoritoDto.class);
-            productoDto.setImagen(Collections.singletonList(objectMapper.convertValue(producto.getImagenes(), ProductoImagenDto.class)));
             LOGGER.info("Favorito encontrado: {}", favoritoDto);
         } else {
             LOGGER.error("El favorito buscado con id {}, no se encuentra registrado en la base de datos", id);
@@ -197,7 +196,7 @@ public class FavoritoService implements IFavoritoService {
     @Override
     public void eliminarFavorito(Long id) {
         if (buscarFavoritoPorId(id) != null) {
-            productoRepository.deleteById(id);
+            favoritoRepository.deleteById(id);
             LOGGER.warn("Se ha eliminado el favorito con ID: {}", id);
         } else {
             LOGGER.error("No se ha encontrado el favorito con id " + id);
