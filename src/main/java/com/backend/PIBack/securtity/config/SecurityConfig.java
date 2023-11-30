@@ -36,7 +36,7 @@ public class SecurityConfig {
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(customizeRequests -> {
                             customizeRequests
-                                    .requestMatchers("/reservas/**").permitAll()
+                                    .requestMatchers("/api/reservas/**").permitAll()
                                     .requestMatchers("/api/auth/**").permitAll()
 
                                     .requestMatchers(HttpMethod.POST,"/api/usuarios/registrar").permitAll()

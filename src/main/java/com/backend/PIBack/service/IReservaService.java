@@ -1,8 +1,9 @@
 package com.backend.PIBack.service;
 
+import com.backend.PIBack.dto.ReservaDto;
 import com.backend.PIBack.entity.Reserva;
 
 public interface IReservaService {
 
-    Reserva registrarReserva (Reserva reserva);
+    ReservaDto registrarReserva (Reserva reserva);
 }

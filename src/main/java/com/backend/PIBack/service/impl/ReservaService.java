@@ -1,5 +1,6 @@
 package com.backend.PIBack.service.impl;
 
+import com.backend.PIBack.dto.ReservaDto;
 import com.backend.PIBack.entity.Reserva;
 import com.backend.PIBack.repository.ReservaRepository;
 import com.backend.PIBack.service.IReservaService;
@@ -20,9 +21,9 @@ public class ReservaService implements IReservaService {
 
 
     @Override
-    public Reserva registrarReserva(Reserva reserva) {
+    public ReservaDto registrarReserva(Reserva reserva) {
         Reserva reservaGuardada = reservaRepository.save(reserva);
 
-        return reservaGuardada;
+        return ReservaDto.fromReserva(reservaGuardada);
     }
 }
