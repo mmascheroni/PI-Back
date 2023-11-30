@@ -1,5 +1,6 @@
 package com.backend.PIBack.controller;
 
+import com.backend.PIBack.dto.ReservaDto;
 import com.backend.PIBack.entity.Reserva;
 import com.backend.PIBack.service.impl.ReservaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class ReservaController {
     }
 
     @PostMapping("/registrar")
-    public ResponseEntity<Reserva> registrarReserva(@RequestBody Reserva reserva) {
+    public ResponseEntity<ReservaDto> registrarReserva(@RequestBody Reserva reserva) {
         return ResponseEntity.status(HttpStatus.CREATED).body(reservaService.registrarReserva(reserva));
     }
 
