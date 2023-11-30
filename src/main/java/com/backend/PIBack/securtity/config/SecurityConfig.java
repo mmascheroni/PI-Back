@@ -36,6 +36,7 @@ public class SecurityConfig {
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(customizeRequests -> {
                             customizeRequests
+                                    .requestMatchers("/reservas/**").permitAll()
                                     .requestMatchers("/api/auth/**").permitAll()
 
                                     .requestMatchers(HttpMethod.POST,"/api/usuarios/registrar").permitAll()
@@ -47,6 +48,7 @@ public class SecurityConfig {
                                     .requestMatchers("/api/caracteristicas/**").permitAll()
 
                                     .requestMatchers("/api/favoritos/**").hasAnyRole("USER", "ADMIN")
+
 
                                     .requestMatchers(HttpMethod.PUT, "/api/usuarios/actualizar").hasAnyRole("USER", "ADMIN")
 
@@ -67,6 +69,8 @@ public class SecurityConfig {
                                     .requestMatchers(HttpMethod.PUT,"/api/**").hasRole("ADMIN")
 
                                     .requestMatchers(HttpMethod.DELETE,"/api/**").hasRole("ADMIN")
+                                    .requestMatchers(HttpMethod.POST, "/api/upload").hasRole("ADMIN")
+
 
                                     .anyRequest()
                                     .authenticated();
