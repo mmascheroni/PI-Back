@@ -39,6 +39,7 @@ public class SecurityConfig {
                                     .requestMatchers(HttpMethod.POST, "/api/reservas/**").permitAll()
                                     .requestMatchers(HttpMethod.GET, "/api/reservas/{id}").permitAll()
                                     .requestMatchers(HttpMethod.GET, "/api/reservas").permitAll()
+                                    .requestMatchers(HttpMethod.DELETE, "/api/reservas/**").permitAll()
                                     .requestMatchers("/api/auth/**").permitAll()
 
                                     .requestMatchers(HttpMethod.POST, "/api/usuarios/registrar").permitAll()
