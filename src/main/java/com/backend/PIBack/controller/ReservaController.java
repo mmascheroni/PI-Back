@@ -34,4 +34,10 @@ public class ReservaController {
         return reservaService.listarTodas();
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<ReservaDto> buscarReservaPorId(@PathVariable Long id){
+        return ResponseEntity.ok(reservaService.buscarReservaPorId(id));
+    }
+
+
 }

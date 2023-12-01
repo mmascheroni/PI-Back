@@ -11,5 +11,5 @@ public interface IReservaService {
 
     List<ReservaDto> listarTodas();
 
-    ReservaDto buscarReservaPorId(Reserva reserva);
+    ReservaDto buscarReservaPorId(Long id);
 }

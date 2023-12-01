@@ -7,7 +7,6 @@ import com.backend.PIBack.entity.Producto;
 import com.backend.PIBack.entity.Reserva;
 import com.backend.PIBack.repository.ReservaRepository;
 import com.backend.PIBack.service.IReservaService;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +14,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 public class ReservaService implements IReservaService {
@@ -23,16 +21,15 @@ public class ReservaService implements IReservaService {
     private final ReservaRepository reservaRepository;
     private final ProductoService productoService;
     private final UsuarioService usuarioService;
-    private final ObjectMapper mapper;
+
 
     @Autowired
-    public ReservaService(ReservaRepository reservaRepository, ProductoService productoService, UsuarioService usuarioService, ObjectMapper mapper) {
+    public ReservaService(ReservaRepository reservaRepository, ProductoService productoService, UsuarioService usuarioService) {
         this.reservaRepository = reservaRepository;
         this.productoService = productoService;
         this.usuarioService = usuarioService;
-        this.mapper = mapper;
-    }
 
+    }
 
 
 //    @Override
@@ -49,42 +46,73 @@ public class ReservaService implements IReservaService {
 
         for (Producto producto : reserva.getProductos()) {
             ProductoDto productoDto = productoService.buscarProductoPorId(producto.getId());
+            productoDto.setId(producto.getId());
+            productoDto.setNombre(producto.getNombre());
+            productoDto.setDescripcion(producto.getDescripcion());
+            productoDto.setCategoria(producto.getCategoria());
+            productoDto.setCaracteristicas(producto.getCaracteristicas());
+
             productosDto.add(productoDto);
         }
 
-        UsuarioDto usuario = usuarioService.buscarUsuarioPorId(reserva.getUsuario().getId());
+        UsuarioDto usuarioDto = usuarioService.buscarUsuarioPorId(reserva.getUsuario().getId());
+        usuarioDto.setId(reserva.getUsuario().getId());
+        usuarioDto.setNombre(reserva.getUsuario().getNombre());
+        usuarioDto.setApellido(reserva.getUsuario().getNombre());
+        usuarioDto.setEmail(reserva.getUsuario().getEmail());
 
-        if(productosDto.isEmpty() || usuario == null){
-            if(productosDto.isEmpty() && usuario == null){
+
+        if (productosDto.isEmpty() || usuarioDto == null) {
+            if (productosDto.isEmpty() && usuarioDto == null) {
                 System.out.println("El producto o el usuario no se encuentran en la base de datos");
-            }else if (productosDto.isEmpty()) {
+            } else if (productosDto.isEmpty()) {
                 System.out.println("El producto no se encuentran en la base de datos");
-            }else {
+            } else {
                 System.out.println("El usuario no se encuentran en la base de datos");
             }
-        }else {
+        } else {
             reservaDto = ReservaDto.fromReserva(reservaRepository.save(reserva));
+            reservaDto.setProductos(productosDto);
+            reservaDto.setUsuario(usuarioDto);
             System.out.println("La reserva ha sido registrada con éxito");
         }
 
         return reservaDto;
     }
-
     @Override
     public List<ReservaDto> listarTodas() {
         List<Reserva> reservas = reservaRepository.findAll();
         List<ReservaDto> reservaDtos = new ArrayList<>();
 
         for (Reserva reserva : reservas) {
-            ReservaDto reservaDto = mapper.convertValue(reserva, ReservaDto.class);
-            Set<ProductoDto> productosDto = new HashSet<>();
+            ReservaDto reservaDto = new ReservaDto();
+            reservaDto.setId(reserva.getId());
+            reservaDto.setFechaReserva(reserva.getFechaReserva());
+            reservaDto.setFechaFin(reserva.getFechaFin());
+            reservaDto.setObservaciones(reserva.getObservaciones());
 
+            Set<ProductoDto> productosDto = new HashSet<>();
             for (Producto producto : reserva.getProductos()) {
-                productosDto.add(ProductoDto.fromProducto(producto));
+                ProductoDto productoDto = new ProductoDto();
+                productoDto.setId(producto.getId());
+                productoDto.setNombre(producto.getNombre());
+                productoDto.setDescripcion(producto.getDescripcion());
+                productoDto.setCategoria(producto.getCategoria());
+                productoDto.setCaracteristicas(producto.getCaracteristicas());
+
+                productosDto.add(productoDto);
             }
 
             reservaDto.setProductos(productosDto);
-            reservaDto.setUsuario(UsuarioDto.fromUsuario(reserva.getUsuario()));
+
+            UsuarioDto usuarioDto = new UsuarioDto();
+            usuarioDto.setId(reserva.getUsuario().getId());
+            usuarioDto.setNombre(reserva.getUsuario().getNombre());
+            usuarioDto.setApellido(reserva.getUsuario().getApellido());
+            usuarioDto.setEmail(reserva.getUsuario().getEmail());
+
+            reservaDto.setUsuario(usuarioDto);
+
             reservaDtos.add(reservaDto);
         }
 
@@ -92,7 +120,42 @@ public class ReservaService implements IReservaService {
     }
 
     @Override
-    public ReservaDto buscarReservaPorId(Reserva reserva) {
-        return null;
+    public ReservaDto buscarReservaPorId(Long id) {
+        Reserva reservabuscada = reservaRepository.findById(id).orElse(null);
+        ReservaDto reservaDto = null;
+
+        if (reservabuscada != null) {
+            reservaDto = new ReservaDto();
+            reservaDto.setId(reservabuscada.getId());
+            reservaDto.setFechaReserva(reservabuscada.getFechaReserva());
+            reservaDto.setFechaInicio(reservabuscada.getFechaInicio());
+            reservaDto.setFechaFin(reservabuscada.getFechaFin());
+            reservaDto.setObservaciones(reservabuscada.getObservaciones());
+
+            Set<ProductoDto> productosDto = new HashSet<>();
+            for (Producto producto : reservabuscada.getProductos()) {
+                ProductoDto productoDto = new ProductoDto();
+                productoDto.setId(producto.getId());
+                productoDto.setNombre(producto.getNombre());
+                productoDto.setDescripcion(producto.getDescripcion());
+                productoDto.setCategoria(producto.getCategoria());
+                productoDto.setCaracteristicas(producto.getCaracteristicas());
+
+                productosDto.add(productoDto);
+            }
+
+            reservaDto.setProductos(productosDto);
+
+            UsuarioDto usuarioDto = new UsuarioDto();
+            usuarioDto.setId(reservabuscada.getUsuario().getId());
+            usuarioDto.setNombre(reservabuscada.getUsuario().getNombre());
+            usuarioDto.setApellido(reservabuscada.getUsuario().getApellido());
+            usuarioDto.setEmail(reservabuscada.getUsuario().getEmail());
+            reservaDto.setUsuario(usuarioDto);
+        } else {
+            System.out.println("La reserva no está registrada en la base de datos");
+        }
+
+        return reservaDto;
     }
 }
