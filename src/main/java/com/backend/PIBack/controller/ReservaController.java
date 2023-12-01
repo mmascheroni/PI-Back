@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @CrossOrigin
 @RestController
 @RequestMapping("/api/reservas")
@@ -20,9 +22,16 @@ public class ReservaController {
         this.reservaService = reservaService;
     }
 
+    //POST
     @PostMapping("/registrar")
     public ResponseEntity<ReservaDto> registrarReserva(@RequestBody Reserva reserva) {
         return ResponseEntity.status(HttpStatus.CREATED).body(reservaService.registrarReserva(reserva));
+    }
+
+    //GET
+    @GetMapping
+    public List<ReservaDto> listarReservas(){
+        return reservaService.listarTodas();
     }
 
 }

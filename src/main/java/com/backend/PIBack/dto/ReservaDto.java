@@ -36,19 +36,25 @@ public class ReservaDto {
     }
 
     public static ReservaDto fromReserva(Reserva reserva){
-        Set<ProductoDto> productoDtos = reserva.getProductos().stream()
-                .map(ProductoDto::fromProducto)
+        Set<ProductoDto> productos = reserva.getProductos().stream()
+                .map(producto -> new ProductoDto(
+                producto.getId(),
+                producto.getNombre(),
+                producto.getDescripcion(),
+                producto.getCategoria(),
+                producto.getCaracteristicas()
+        ))
                 .collect(Collectors.toCollection(LinkedHashSet::new));
 
-        UsuarioDto usuarioDto = UsuarioDto.fromUsuario(reserva.getUsuario());
+        UsuarioDto usuario = UsuarioDto.fromUsuario(reserva.getUsuario());
 
         return new ReservaDto(
                 reserva.getId(),
                 reserva.getFechaReserva(),
                 reserva.getFechaInicio(),
                 reserva.getFechaFin(),
-                productoDtos,
-                usuarioDto,
+                productos,
+                usuario,
                 reserva.getObservaciones()
         );
     }
@@ -94,7 +100,11 @@ public class ReservaDto {
     }
 
 
-    public ReservaDto(UsuarioDto usuario) {
+    public UsuarioDto getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(UsuarioDto usuario) {
         this.usuario = usuario;
     }
 
