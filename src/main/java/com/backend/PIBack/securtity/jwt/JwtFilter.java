@@ -33,14 +33,14 @@ public class JwtFilter extends OncePerRequestFilter {
 
         String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
 
-        if ( authHeader == null || authHeader.isEmpty() || !authHeader.startsWith("Bearer") ) {
+        if (authHeader == null || authHeader.isEmpty() || !authHeader.startsWith("Bearer")) {
             filterChain.doFilter(request, response);
             return;
         }
 
         String jwt = authHeader.replace("Bearer ", "");
 
-        if ( !this.jwtUtil.isValid(jwt) ) {
+        if (!this.jwtUtil.isValid(jwt)) {
             filterChain.doFilter(request, response);
             return;
         }

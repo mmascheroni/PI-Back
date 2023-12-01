@@ -7,9 +7,12 @@ import java.util.List;
 
 public interface IReservaService {
 
-    ReservaDto registrarReserva (Reserva reserva);
+    ReservaDto registrarReserva(Reserva reserva);
 
     List<ReservaDto> listarTodas();
 
     ReservaDto buscarReservaPorId(Long id);
+
+    void eliminarReserva(Long id);
+
 }

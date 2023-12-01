@@ -1,9 +1,7 @@
 package com.backend.PIBack.service.impl;
 
 import com.backend.PIBack.dto.CategoriaDto;
-import com.backend.PIBack.dto.UsuarioDto;
 import com.backend.PIBack.entity.Categoria;
-import com.backend.PIBack.entity.Usuario;
 import com.backend.PIBack.repository.CategoriaRepository;
 import com.backend.PIBack.service.ICategoriaService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -87,15 +85,15 @@ public class CategoriaService implements ICategoriaService {
 
         if (categoriaAActualizar != null) {
 
-            if ( categoria.getTitulo() != null ) {
+            if (categoria.getTitulo() != null) {
                 categoriaAActualizar.setTitulo(categoria.getTitulo());
             }
 
-            if ( categoria.getDescripcion() != null ) {
+            if (categoria.getDescripcion() != null) {
                 categoriaAActualizar.setDescripcion(categoria.getDescripcion());
             }
 
-            if ( categoria.getUrlImagen() != null ) {
+            if (categoria.getUrlImagen() != null) {
                 categoriaAActualizar.setUrlImagen(categoria.getUrlImagen());
             }
 

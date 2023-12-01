@@ -30,13 +30,19 @@ public class ReservaController {
 
     //GET
     @GetMapping
-    public List<ReservaDto> listarReservas(){
+    public List<ReservaDto> listarReservas() {
         return reservaService.listarTodas();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ReservaDto> buscarReservaPorId(@PathVariable Long id){
+    public ResponseEntity<ReservaDto> buscarReservaPorId(@PathVariable Long id) {
         return ResponseEntity.ok(reservaService.buscarReservaPorId(id));
+    }
+
+    @DeleteMapping("/eliminar/{id}")
+    public ResponseEntity<?> eliminarReserva(@PathVariable Long id) {
+        reservaService.eliminarReserva(id);
+        return ResponseEntity.ok("Reserva eliminada con éxito.");
     }
 
 

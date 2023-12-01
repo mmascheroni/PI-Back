@@ -7,6 +7,8 @@ import com.backend.PIBack.entity.Producto;
 import com.backend.PIBack.entity.Reserva;
 import com.backend.PIBack.repository.ReservaRepository;
 import com.backend.PIBack.service.IReservaService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,7 @@ import java.util.Set;
 @Service
 public class ReservaService implements IReservaService {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(ReservaService.class);
     private final ReservaRepository reservaRepository;
     private final ProductoService productoService;
     private final UsuarioService usuarioService;
@@ -79,6 +82,7 @@ public class ReservaService implements IReservaService {
 
         return reservaDto;
     }
+
     @Override
     public List<ReservaDto> listarTodas() {
         List<Reserva> reservas = reservaRepository.findAll();
@@ -158,4 +162,17 @@ public class ReservaService implements IReservaService {
 
         return reservaDto;
     }
+
+    @Override
+    public void eliminarReserva(Long id) {
+        if (buscarReservaPorId(id) != null) {
+            reservaRepository.deleteById(id);
+            LOGGER.warn("Se ha eliminado la reserva con ID: {}", id);
+        } else {
+            LOGGER.warn("La reserva con ID: " + id + "no se encuentra en la base de datos");
+
+        }
+    }
+
+
 }

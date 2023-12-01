@@ -8,11 +8,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class PiBackApplication {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(PiBackApplication.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(PiBackApplication.class);
 
-	public static void main(String[] args) {
-		SpringApplication.run(PiBackApplication.class, args);
-		LOGGER.info("Inicializando Sinfonía...");
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(PiBackApplication.class, args);
+        LOGGER.info("Inicializando Sinfonía...");
+    }
 
 }

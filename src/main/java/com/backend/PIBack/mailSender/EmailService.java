@@ -3,19 +3,11 @@ package com.backend.PIBack.mailSender;
 import com.backend.PIBack.entity.Usuario;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
-import jakarta.mail.util.ByteArrayDataSource;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.core.io.InputStreamSource;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.Optional;
 
 @Service
@@ -72,7 +64,7 @@ public class EmailService {
                 "<p>A continuación, te proporcionamos los detalles de tu registro: <br>" +
                 "\n" +
                 "<b>• Nombre:</b> " + usuario.getNombre() + " " + usuario.getApellido() + "<br>" +
-                "<b>• Email:</b> " + usuario.getEmail() +"</p>" +
+                "<b>• Email:</b> " + usuario.getEmail() + "</p>" +
                 "<p>Para confirmar que la información ingresada es correcta, por favor, haz clic en el siguiente enlace para iniciar sesión en tu cuenta recién creada:\n" +
                 "\n" +
                 "http://localhost:5173/login</p>" +

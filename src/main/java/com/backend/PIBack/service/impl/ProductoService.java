@@ -1,25 +1,19 @@
 package com.backend.PIBack.service.impl;
 
+import com.backend.PIBack.dto.ProductoDto;
 import com.backend.PIBack.dto.ProductoImagenDto;
-import com.backend.PIBack.dto.UsuarioDto;
-import com.backend.PIBack.entity.Categoria;
 import com.backend.PIBack.entity.Imagen;
-import com.backend.PIBack.entity.Usuario;
+import com.backend.PIBack.entity.Producto;
+import com.backend.PIBack.repository.ProductoRepository;
 import com.backend.PIBack.service.IProductoService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.backend.PIBack.dto.ProductoDto;
-
-import com.backend.PIBack.entity.Producto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import com.backend.PIBack.repository.ProductoRepository;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -66,13 +60,12 @@ public class ProductoService implements IProductoService {
     }
 
 
-
     @Override
     public ProductoDto buscarProductoPorId(Long id) {
         Producto productoBuscado = productoRepository.findById(id).orElse(null);
         ProductoDto productoDto = null;
 
-        if ( productoBuscado != null ) {
+        if (productoBuscado != null) {
             productoDto = convertirAProductoDto(productoBuscado);
             LOGGER.info("Producto encontrado: {}", productoDto);
         } else {
@@ -91,7 +84,7 @@ public class ProductoService implements IProductoService {
                 .map(producto -> convertirAProductoDto(producto))
                 .toList();
 
-        if ( productosDtos.size() > 0 ) {
+        if (productosDtos.size() > 0) {
             LOGGER.info("Listado de productos: {}", productosDtos);
         } else {
             LOGGER.warn("No existe producto registrado en la base de datos: {}", productosDtos);
@@ -109,7 +102,7 @@ public class ProductoService implements IProductoService {
                 .map(producto -> convertirAProductoDto(producto))
                 .toList();
 
-        if ( productosDtos.size() > 0 ) {
+        if (productosDtos.size() > 0) {
             LOGGER.info("Listado de productos: {}", productosDtos);
         } else {
             LOGGER.warn("No existe producto registrado en la base de datos: {}", productosDtos);
@@ -126,7 +119,7 @@ public class ProductoService implements IProductoService {
                 .map(producto -> convertirAProductoDto(producto))
                 .toList();
 
-        if ( productosDtos.size() > 0 ) {
+        if (productosDtos.size() > 0) {
             LOGGER.info("Listado Aleatorio de productos: {}", productosDtos);
         } else {
             LOGGER.warn("No existe producto registrado en la base de datos: {}", productosDtos);
@@ -193,7 +186,6 @@ public class ProductoService implements IProductoService {
                 producto.getId(), producto.getNombre(), producto.getDescripcion(), imagenesDto, producto.getCategoria(), producto.getCaracteristicas()
         );
     }
-
 
 
 }

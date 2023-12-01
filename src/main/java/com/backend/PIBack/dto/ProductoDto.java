@@ -1,12 +1,12 @@
 package com.backend.PIBack.dto;
 
 //import com.backend.PIBack.entity.Imagen;
+
 import com.backend.PIBack.entity.Caracteristica;
 import com.backend.PIBack.entity.Categoria;
 import com.backend.PIBack.entity.Imagen;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.backend.PIBack.entity.Producto;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ public class ProductoDto {
 
     private List<ProductoImagenDto> imagenes;
 
-    private Categoria  categoria;
+    private Categoria categoria;
 
     private List<Caracteristica> caracteristicas;
 
@@ -130,13 +130,13 @@ public class ProductoDto {
 
     @Override
     public String toString() {
-            return "Producto {" +
-                    "id=" + id +
-                    ", nombre='" + nombre + '\'' +
-                    ", descripcion='" + descripcion + '\'' +
-                    ", imagenes='" + imagenes + '\'' +
-                    ", categoría='" + categoria + '\'' +
-                    ", características='" + caracteristicas + '\'' +
-                    '}';
+        return "Producto {" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", descripcion='" + descripcion + '\'' +
+                ", imagenes='" + imagenes + '\'' +
+                ", categoría='" + categoria + '\'' +
+                ", características='" + caracteristicas + '\'' +
+                '}';
     }
 }

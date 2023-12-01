@@ -18,7 +18,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -55,14 +54,12 @@ public class FavoritoService implements IFavoritoService {
         ProductoDto productoDto = convertirAProductoDto(producto);
 
 
-
-
-        if ( usuario == null ) {
+        if (usuario == null) {
             LOGGER.info("No existe el usuario con id: {}", favorito.getUsuario().getId());
             return null;
         }
 
-        if ( producto == null ) {
+        if (producto == null) {
             LOGGER.info("No existe el producto con id: {}", favorito.getProducto().getId());
             return null;
         }
@@ -88,7 +85,7 @@ public class FavoritoService implements IFavoritoService {
 
         ProductoDto productoDto = convertirAProductoDto(producto);
 
-        if ( favoritoBuscado != null ) {
+        if (favoritoBuscado != null) {
             favoritoDto = objectMapper.convertValue(favoritoBuscado, FavoritoDto.class);
             LOGGER.info("Favorito encontrado: {}", favoritoDto);
         } else {
@@ -135,7 +132,6 @@ public class FavoritoService implements IFavoritoService {
 
             Usuario usuario = usuarioRepository.findByEmail(favorito.getUsuario().getEmail()).orElse(null);
             Producto producto = productoRepository.findById(favorito.getProducto().getId()).orElse(null);
-
 
 
             UsuarioDto usuarioDto = objectMapper.convertValue(usuario, UsuarioDto.class);

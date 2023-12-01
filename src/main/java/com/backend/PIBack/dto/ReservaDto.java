@@ -35,15 +35,15 @@ public class ReservaDto {
         this.observaciones = observaciones;
     }
 
-    public static ReservaDto fromReserva(Reserva reserva){
+    public static ReservaDto fromReserva(Reserva reserva) {
         Set<ProductoDto> productos = reserva.getProductos().stream()
                 .map(producto -> new ProductoDto(
-                producto.getId(),
-                producto.getNombre(),
-                producto.getDescripcion(),
-                producto.getCategoria(),
-                producto.getCaracteristicas()
-        ))
+                        producto.getId(),
+                        producto.getNombre(),
+                        producto.getDescripcion(),
+                        producto.getCategoria(),
+                        producto.getCaracteristicas()
+                ))
                 .collect(Collectors.toCollection(LinkedHashSet::new));
 
         UsuarioDto usuario = UsuarioDto.fromUsuario(reserva.getUsuario());

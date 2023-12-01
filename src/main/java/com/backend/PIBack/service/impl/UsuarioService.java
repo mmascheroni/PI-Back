@@ -73,26 +73,26 @@ public class UsuarioService implements IUsuarioService {
         Usuario usuarioAActualizar = usuarioRepository.findById(usuario.getId()).orElse(null);
         UsuarioDto usuarioDto = null;
 
-        if ( usuarioAActualizar != null ) {
-            if ( usuario.getNombre() != null ) {
+        if (usuarioAActualizar != null) {
+            if (usuario.getNombre() != null) {
                 usuarioAActualizar.setNombre(usuario.getNombre());
             }
 
-            if ( usuario.getApellido() != null ) {
+            if (usuario.getApellido() != null) {
                 usuarioAActualizar.setApellido(usuario.getApellido());
             }
 
-            if ( usuario.getEmail() != null ) {
+            if (usuario.getEmail() != null) {
                 usuarioAActualizar.setEmail(usuario.getEmail());
             }
 
-            if ( usuario.getPassword() != null ) {
+            if (usuario.getPassword() != null) {
                 String passwordUsuario = bCryptPasswordEncoder.encode(usuario.getPassword());
 
                 usuarioAActualizar.setPassword(passwordUsuario);
             }
 
-            if ( usuario.getRole() != null ) {
+            if (usuario.getRole() != null) {
                 usuarioAActualizar.setRole(usuario.getRole());
             }
 

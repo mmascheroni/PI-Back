@@ -86,15 +86,15 @@ public class CaracteristicaService implements ICaracteristicaService {
 
         if (caracteristicaAActualizar != null) {
 
-            if ( caracteristica.getNombre() != null ) {
+            if (caracteristica.getNombre() != null) {
                 caracteristicaAActualizar.setNombre(caracteristica.getNombre());
             }
 
-            if ( caracteristica.getUrlIcono() != null ) {
+            if (caracteristica.getUrlIcono() != null) {
                 caracteristicaAActualizar.setUrlIcono(caracteristica.getUrlIcono());
             }
 
-            if ( caracteristica.getProductos() != null ) {
+            if (caracteristica.getProductos() != null) {
                 caracteristicaAActualizar.setProductos(caracteristica.getProductos());
             }
 
