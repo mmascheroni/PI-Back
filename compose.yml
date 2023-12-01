@@ -1,0 +1,24 @@
+version: "3.8"
+services:
+  app:
+    build: .
+    restart: always
+    ports:
+      - "8080:8080"
+    networks:
+      - serra
+    depends_on:
+      - mysqldb
+  mysqldb:
+    image: 'mysql:latest'
+    restart: always
+    networks:
+      - serra
+    ports:
+      - "3306"
+    environment:
+      - 'MYSQL_DATABASE=proyectoIntegrador'
+      - 'MYSQL_PASSWORD=Serra2022'
+      - 'MYSQL_ROOT_PASSWORD=Serra2022'
+networks:
+  serra:
