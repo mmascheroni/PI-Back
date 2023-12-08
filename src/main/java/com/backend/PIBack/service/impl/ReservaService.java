@@ -12,10 +12,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class ReservaService implements IReservaService {
@@ -35,13 +36,6 @@ public class ReservaService implements IReservaService {
     }
 
 
-//    @Override
-//    public ReservaDto registrarReserva(Reserva reserva) {
-//        Reserva reservaGuardada = reservaRepository.save(reserva);
-//
-//        return ReservaDto.fromReserva(reservaGuardada);
-//    }
-
     @Override
     public ReservaDto registrarReserva(Reserva reserva) {
         ReservaDto reservaDto = null;
@@ -49,20 +43,11 @@ public class ReservaService implements IReservaService {
 
         for (Producto producto : reserva.getProductos()) {
             ProductoDto productoDto = productoService.buscarProductoPorId(producto.getId());
-            productoDto.setId(producto.getId());
-            productoDto.setNombre(producto.getNombre());
-            productoDto.setDescripcion(producto.getDescripcion());
-            productoDto.setCategoria(producto.getCategoria());
-            productoDto.setCaracteristicas(producto.getCaracteristicas());
 
             productosDto.add(productoDto);
         }
 
         UsuarioDto usuarioDto = usuarioService.buscarUsuarioPorId(reserva.getUsuario().getId());
-        usuarioDto.setId(reserva.getUsuario().getId());
-        usuarioDto.setNombre(reserva.getUsuario().getNombre());
-        usuarioDto.setApellido(reserva.getUsuario().getNombre());
-        usuarioDto.setEmail(reserva.getUsuario().getEmail());
 
 
         if (productosDto.isEmpty() || usuarioDto == null) {
@@ -85,82 +70,15 @@ public class ReservaService implements IReservaService {
 
     @Override
     public List<ReservaDto> listarTodas() {
-        List<Reserva> reservas = reservaRepository.findAll();
-        List<ReservaDto> reservaDtos = new ArrayList<>();
+        return reservaRepository.findAll().stream().map(ReservaDto::fromReserva).collect(Collectors.toList());
 
-        for (Reserva reserva : reservas) {
-            ReservaDto reservaDto = new ReservaDto();
-            reservaDto.setId(reserva.getId());
-            reservaDto.setFechaReserva(reserva.getFechaReserva());
-            reservaDto.setFechaFin(reserva.getFechaFin());
-            reservaDto.setObservaciones(reserva.getObservaciones());
-
-            Set<ProductoDto> productosDto = new HashSet<>();
-            for (Producto producto : reserva.getProductos()) {
-                ProductoDto productoDto = new ProductoDto();
-                productoDto.setId(producto.getId());
-                productoDto.setNombre(producto.getNombre());
-                productoDto.setDescripcion(producto.getDescripcion());
-                productoDto.setCategoria(producto.getCategoria());
-                productoDto.setCaracteristicas(producto.getCaracteristicas());
-
-                productosDto.add(productoDto);
-            }
-
-            reservaDto.setProductos(productosDto);
-
-            UsuarioDto usuarioDto = new UsuarioDto();
-            usuarioDto.setId(reserva.getUsuario().getId());
-            usuarioDto.setNombre(reserva.getUsuario().getNombre());
-            usuarioDto.setApellido(reserva.getUsuario().getApellido());
-            usuarioDto.setEmail(reserva.getUsuario().getEmail());
-
-            reservaDto.setUsuario(usuarioDto);
-
-            reservaDtos.add(reservaDto);
-        }
-
-        return reservaDtos;
     }
 
     @Override
     public ReservaDto buscarReservaPorId(Long id) {
-        Reserva reservabuscada = reservaRepository.findById(id).orElse(null);
-        ReservaDto reservaDto = null;
+        Optional<Reserva> reserva = reservaRepository.findById(id);
+        return reserva.map(ReservaDto::fromReserva).orElse(null);
 
-        if (reservabuscada != null) {
-            reservaDto = new ReservaDto();
-            reservaDto.setId(reservabuscada.getId());
-            reservaDto.setFechaReserva(reservabuscada.getFechaReserva());
-            reservaDto.setFechaInicio(reservabuscada.getFechaInicio());
-            reservaDto.setFechaFin(reservabuscada.getFechaFin());
-            reservaDto.setObservaciones(reservabuscada.getObservaciones());
-
-            Set<ProductoDto> productosDto = new HashSet<>();
-            for (Producto producto : reservabuscada.getProductos()) {
-                ProductoDto productoDto = new ProductoDto();
-                productoDto.setId(producto.getId());
-                productoDto.setNombre(producto.getNombre());
-                productoDto.setDescripcion(producto.getDescripcion());
-                productoDto.setCategoria(producto.getCategoria());
-                productoDto.setCaracteristicas(producto.getCaracteristicas());
-
-                productosDto.add(productoDto);
-            }
-
-            reservaDto.setProductos(productosDto);
-
-            UsuarioDto usuarioDto = new UsuarioDto();
-            usuarioDto.setId(reservabuscada.getUsuario().getId());
-            usuarioDto.setNombre(reservabuscada.getUsuario().getNombre());
-            usuarioDto.setApellido(reservabuscada.getUsuario().getApellido());
-            usuarioDto.setEmail(reservabuscada.getUsuario().getEmail());
-            reservaDto.setUsuario(usuarioDto);
-        } else {
-            System.out.println("La reserva no está registrada en la base de datos");
-        }
-
-        return reservaDto;
     }
 
     @Override

@@ -15,7 +15,7 @@ import java.util.List;
 @RequestMapping("/api/reservas")
 public class ReservaController {
 
-    private ReservaService reservaService;
+    private final ReservaService reservaService;
 
     @Autowired
     public ReservaController(ReservaService reservaService) {
