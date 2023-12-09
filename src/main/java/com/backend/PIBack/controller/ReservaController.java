@@ -2,7 +2,9 @@ package com.backend.PIBack.controller;
 
 import com.backend.PIBack.dto.ReservaDto;
 import com.backend.PIBack.entity.Reserva;
+import com.backend.PIBack.mailSender.EmailService;
 import com.backend.PIBack.service.impl.ReservaService;
+import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +19,7 @@ public class ReservaController {
 
     private final ReservaService reservaService;
 
+
     @Autowired
     public ReservaController(ReservaService reservaService) {
         this.reservaService = reservaService;
@@ -24,7 +27,7 @@ public class ReservaController {
 
     //POST
     @PostMapping("/registrar")
-    public ResponseEntity<ReservaDto> registrarReserva(@RequestBody Reserva reserva) {
+    public ResponseEntity<ReservaDto> registrarReserva(@RequestBody Reserva reserva) throws MessagingException {
         return ResponseEntity.status(HttpStatus.CREATED).body(reservaService.registrarReserva(reserva));
     }
 
