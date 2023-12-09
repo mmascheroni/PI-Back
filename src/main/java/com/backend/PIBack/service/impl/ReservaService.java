@@ -5,8 +5,12 @@ import com.backend.PIBack.dto.ReservaDto;
 import com.backend.PIBack.dto.UsuarioDto;
 import com.backend.PIBack.entity.Producto;
 import com.backend.PIBack.entity.Reserva;
+import com.backend.PIBack.entity.Usuario;
+import com.backend.PIBack.mailSender.EmailService;
 import com.backend.PIBack.repository.ReservaRepository;
+import com.backend.PIBack.repository.UsuarioRepository;
 import com.backend.PIBack.service.IReservaService;
+import jakarta.mail.MessagingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,18 +30,22 @@ public class ReservaService implements IReservaService {
     private final ProductoService productoService;
     private final UsuarioService usuarioService;
 
+    private final EmailService emailService;
+    private final UsuarioRepository usuarioRepository;
+
 
     @Autowired
-    public ReservaService(ReservaRepository reservaRepository, ProductoService productoService, UsuarioService usuarioService) {
+    public ReservaService(ReservaRepository reservaRepository, ProductoService productoService, UsuarioService usuarioService, EmailService emailService, UsuarioRepository usuarioRepository) {
         this.reservaRepository = reservaRepository;
         this.productoService = productoService;
         this.usuarioService = usuarioService;
-
+        this.emailService = emailService;
+        this.usuarioRepository = usuarioRepository;
     }
 
 
     @Override
-    public ReservaDto registrarReserva(Reserva reserva) {
+    public ReservaDto registrarReserva(Reserva reserva) throws MessagingException {
         ReservaDto reservaDto = null;
         Set<ProductoDto> productosDto = new HashSet<>();
 
@@ -47,6 +55,7 @@ public class ReservaService implements IReservaService {
             productosDto.add(productoDto);
         }
 
+        Usuario usuario = usuarioRepository.findById(reserva.getUsuario().getId()).orElse(null);
         UsuarioDto usuarioDto = usuarioService.buscarUsuarioPorId(reserva.getUsuario().getId());
 
 
@@ -63,6 +72,8 @@ public class ReservaService implements IReservaService {
             reservaDto.setProductos(productosDto);
             reservaDto.setUsuario(usuarioDto);
             System.out.println("La reserva ha sido registrada con éxito");
+
+            emailService.sendWithImageFromURLReserva("pi.sinfonia23@gmail.com", usuarioDto.getEmail(), "Confirmación Reserva Exitosa", usuario, productosDto, reservaDto);
         }
 
         return reservaDto;
