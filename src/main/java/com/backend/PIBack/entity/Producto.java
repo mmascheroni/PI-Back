@@ -42,6 +42,7 @@ public class Producto {
     @JsonIgnore
     private List<Favorito> favoritos;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "productos")
     private Set<Reserva> reservas = new LinkedHashSet<>();
 
