@@ -32,6 +32,7 @@ public class Usuario {
     @JsonIgnore
     private List<Favorito> favoritos;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "usuario")
     private Set<Reserva> reservas = new LinkedHashSet<>();
 
