@@ -4,6 +4,7 @@ import com.backend.PIBack.dto.ProductoDto;
 import com.backend.PIBack.dto.ProductoImagenDto;
 import com.backend.PIBack.entity.Imagen;
 import com.backend.PIBack.entity.Producto;
+import com.backend.PIBack.repository.ImagenRepository;
 import com.backend.PIBack.repository.ProductoRepository;
 import com.backend.PIBack.service.IProductoService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -24,11 +25,14 @@ public class ProductoService implements IProductoService {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(ProductoService.class);
     private final ProductoRepository productoRepository;
+
+    private final ImagenRepository imagenRepository;
     private final ObjectMapper objectMapper;
 
     @Autowired
-    public ProductoService(ProductoRepository productoRepository, ObjectMapper objectMapper) {
+    public ProductoService(ProductoRepository productoRepository, ImagenRepository imagenRepository, ObjectMapper objectMapper) {
         this.productoRepository = productoRepository;
+        this.imagenRepository = imagenRepository;
         this.objectMapper = objectMapper;
     }
 
@@ -44,18 +48,21 @@ public class ProductoService implements IProductoService {
 
     @Override
     public ProductoDto registrarProducto(Producto producto) {
-        ProductoDto productoDto = null;
+        // Guarda el producto para obtener su ID asignado
+        Producto productoGuardado = productoRepository.save(producto);
 
-        if (producto.getImagenes() != null) {
-            productoRepository.save(producto);
-            productoDto = objectMapper.convertValue(producto, ProductoDto.class);
-        } else {
-            productoDto = objectMapper.convertValue(productoRepository.save(producto), ProductoDto.class);
+        ProductoDto productoDto = objectMapper.convertValue(productoGuardado, ProductoDto.class);
+
+        // Asocia las imágenes con el producto
+        List<Imagen> imagenes = producto.getImagenes();
+        if (imagenes != null && !imagenes.isEmpty()) {
+            for (Imagen imagen : imagenes) {
+                imagen.setProducto(productoGuardado);
+            }
+            imagenRepository.saveAll(imagenes);
         }
 
-        LOGGER.info("Se guardó el producto: {}", productoDto);
-
-
+        // Devuelve el producto guardado con las imágenes asociadas
         return productoDto;
     }
 

@@ -23,7 +23,6 @@ public class Producto {
     private String descripcion;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "producto", orphanRemoval = true)
-    @JsonIgnore
     private List<Imagen> imagenes;
 
     @ManyToOne

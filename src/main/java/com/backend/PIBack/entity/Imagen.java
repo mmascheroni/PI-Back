@@ -1,5 +1,6 @@
 package com.backend.PIBack.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -14,9 +15,14 @@ public class Imagen {
 
     @ManyToOne
     @JoinColumn(name = "producto_id")
+    @JsonIgnore
     private Producto producto;
 
     public Imagen() {
+    }
+
+    public Imagen(String url) {
+        this.url = url;
     }
 
     public Imagen(String url, Producto producto) {
