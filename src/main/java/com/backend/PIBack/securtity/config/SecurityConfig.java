@@ -36,6 +36,7 @@ public class SecurityConfig {
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(customizeRequests -> {
                             customizeRequests
+                                    .requestMatchers(HttpMethod.POST, "/api/s3/upload").permitAll()
                                     .requestMatchers(HttpMethod.POST, "/api/reservas/**").permitAll()
                                     .requestMatchers(HttpMethod.GET, "/api/reservas/{id}").permitAll()
                                     .requestMatchers(HttpMethod.GET, "/api/reservas").permitAll()
