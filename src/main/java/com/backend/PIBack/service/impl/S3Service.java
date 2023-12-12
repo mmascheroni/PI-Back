@@ -37,7 +37,7 @@ public class S3Service implements IS3Service {
 
             // Configura la solicitud para subir el archivo a S3
             PutObjectRequest putObjectRequest = PutObjectRequest.builder()
-                    .bucket("1023c09-grupo1-img")
+                    .bucket("img-c9-g2-bucket")
                     .key(key)
                     .contentType(getContentType(uniqueFileName)) // Configura el tipo MIME
                     .build();
